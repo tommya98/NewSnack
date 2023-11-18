@@ -1,13 +1,16 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import IconButton from "@mui/material/IconButton";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import AppLogo from "./AppLogo";
+import LogoutBtn from "./LogoutBtn";
 
 const Sidebar = styled("section")(({ theme }) => ({
   height: "100vh",
   width: "16rem", // Equivalent to w-64
   backgroundColor: "#FEFEFE",
   borderRight: "1px solid #E0E0E0", // Add a right-side border
+  position: "fixed",
   [theme.breakpoints.up("sm")]: {
     backgroundColor: theme.palette.mode === "dark" ? "#1a202c" : "#FEFEFE",
   },
@@ -21,8 +24,16 @@ const LogoWrapper = styled("div")({
   backgroundColor: "transparent", // Removed the grey background
 });
 
+const LogoutWrapper = styled("div")({
+  padding: "1rem 2rem", // Adjusted as previously requested
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between", // Align items to the start (left)
+  backgroundColor: "transparent", // Removed the grey background
+});
+
 const Title = styled("h1")(({ theme }) => ({
-  fontSize: "1rem", // Equivalent to text-2xl
+  fontSize: "1.2rem", // Equivalent to text-2xl
   fontWeight: 600,
   color: theme.palette.text.primary,
   [theme.breakpoints.up("sm")]: {
@@ -60,24 +71,23 @@ const Icon = styled("svg")({
 });
 
 export interface FeedPageSidebarProps {
+  setPage: React.Dispatch<React.SetStateAction<string>>;
   // 여기에 FeedPageSidebar 컴포넌트의 props 타입을 정의합니다.
 }
 
 // Sidebar component
-const FeedPageSidebar: React.FC<FeedPageSidebarProps> = () => {
+const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
   return (
     <Sidebar>
       <LogoWrapper>
-        {/* <Logo alt="Logo" /> */}
+        <AppLogo />
         <Title>Newsnack</Title>
         <IconButton size="large" edge="end" color="inherit">
           <AccountCircle />
         </IconButton>
       </LogoWrapper>
       <Nav>
-        {/* Home link */}
-        <NavLink href="#" rel="ugc">
-          {/* Home icon SVG */}
+        <NavLink href="#" rel="ugc" onClick={() => setPage("home")}>
           <Icon
             viewBox="0 0 24 24"
             fill="none"
@@ -92,8 +102,7 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = () => {
           <span>Home</span>
         </NavLink>
 
-        <NavLink href="#" rel="ugc">
-          {/* Home icon SVG */}
+        <NavLink href="#" rel="ugc" onClick={() => setPage("explore")}>
           <Icon
             viewBox="0 0 24 24"
             fill="none"
@@ -102,15 +111,13 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9 22 9 12 15 12 15 22" />
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </Icon>
           <span>Explore</span>
         </NavLink>
 
-        {/* History link */}
-        <NavLink href="#" rel="ugc">
-          {/* History icon SVG */}
+        <NavLink href="#" rel="ugc" onClick={() => setPage("history")}>
           <Icon
             viewBox="0 0 24 24"
             fill="none"
@@ -126,9 +133,7 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = () => {
           <span>History</span>
         </NavLink>
 
-        {/* Favorite link */}
-        <NavLink href="#" rel="ugc">
-          {/* Favorite icon SVG */}
+        <NavLink href="#" rel="ugc" onClick={() => setPage("favorite")}>
           <Icon
             viewBox="0 0 24 24"
             fill="none"
@@ -142,9 +147,7 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = () => {
           <span>Favorite</span>
         </NavLink>
 
-        {/* Settings link */}
-        <NavLink href="#" rel="ugc">
-          {/* Settings icon SVG */}
+        <NavLink href="#" rel="ugc" onClick={() => setPage("settings")}>
           <Icon
             viewBox="0 0 24 24"
             fill="none"
@@ -159,6 +162,9 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = () => {
           <span>Settings</span>
         </NavLink>
       </Nav>
+      <LogoutWrapper>
+        <LogoutBtn />
+      </LogoutWrapper>
     </Sidebar>
   );
 };
