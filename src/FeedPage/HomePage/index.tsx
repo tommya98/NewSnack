@@ -51,7 +51,7 @@ const Container = styled(Box)`
   flex-direction: column;
   align-content: center;
   justify-content: center;
-  margin: 2rem auto 5rem auto;
+  margin: 4rem auto 5rem auto;
   gap: 30px;
 `;
 
@@ -61,26 +61,10 @@ const NewsItemContainer = styled(Box)`
 
 export default HomePage;
 
-const mockData = [
-  {
-    imgSrc: "https://picsum.photos/seed/news1/200/300",
-    newsTitle: "NewsTitle 1",
-    newsSummary:
-      "NewsSummary 1 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-    author: "author 1",
-  },
-  {
-    imgSrc: "https://picsum.photos/seed/news2/200/300",
-    newsTitle: "NewsTitle 2",
-    newsSummary:
-      "NewsSummary 2 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-    author: "author 2",
-  },
-  {
-    imgSrc: "https://picsum.photos/seed/news3/200/300",
-    newsTitle: "NewsTitle 3",
-    newsSummary:
-      "NewsSummary 3 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-    author: "author 3",
-  },
-];
+const mockData = Array.from({ length: 3 }, (_, i) => ({
+  imgSrc: `https://picsum.photos/seed/${Math.random()}/200/300`,
+  newsTitle: `NewsTitle ${i + 1}`,
+  newsSummary:
+    `NewsSummary ${i + 1} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.`,
+  author: `author ${i + 1}`,
+}));
