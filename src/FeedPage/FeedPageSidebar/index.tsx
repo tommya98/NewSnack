@@ -60,7 +60,8 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
     navigate("/");
   }
 
-  const IconDict: { [K in "Home" | "Explore" | "History" | "Favorite"]: any } = {
+  type IconKey = 'Home' | 'Explore' | 'History' | 'Favorite';
+  const IconDict: Record<IconKey, any>  = {
     "Home" : <HomeIcon/>,
     "Explore" : <ExploreIcon/>,
     "History" : <HistoryIcon/>,
@@ -98,7 +99,7 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
               onClick={() => handleListItemClick(text, index)
                 }>
                 <ListItemIcon>
-                  {IconDict[text]}
+                  {IconDict[text as IconKey]}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
