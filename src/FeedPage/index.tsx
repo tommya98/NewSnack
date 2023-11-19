@@ -22,7 +22,7 @@ const ContentLayout = styled(Box)`
 const MainContent = styled(Box)`
   flex-grow: 1;
   padding: theme.spacing(3);
-  background-color: #f4f4f4;
+  background-color: #fefef9;
 `;
 
 export interface FeedPageProps {

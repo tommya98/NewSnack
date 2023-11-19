@@ -9,6 +9,7 @@ const HomePage = () => {
     <Container>
       <Title date="Today" />
       <SubTitle label="News" />
+      <NewsItemContainer>
       {mockData.map((news) => {
         return (
           <NewsItem
@@ -20,6 +21,7 @@ const HomePage = () => {
           />
         );
       })}
+      </NewsItemContainer>
       <SubTitle label="Youtube" />
       {mockData.map((news) => {
         return (
@@ -54,7 +56,11 @@ const Container = styled(Box)`
   align-content: center;
   justify-content: center;
   margin: 2rem 10rem 5rem 10rem;
-  gap: 60px;
+  gap: 30px;
+`;
+
+const NewsItemContainer = styled(Box)`
+  gap: 10px;
 `;
 
 export default HomePage;

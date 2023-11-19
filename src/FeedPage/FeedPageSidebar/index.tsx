@@ -64,6 +64,7 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            borderWidth: '0px',
           },
         }}
         variant="permanent"
