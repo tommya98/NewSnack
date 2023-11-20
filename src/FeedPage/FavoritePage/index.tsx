@@ -10,10 +10,10 @@ const FavoritePage = () => {
       <Container>
         <Title date="Favorite" />
         <Divider />
-        {mockData.map((news) => {
+        {mockData.map((news, index) => {
           return (
             <NewsItem
-              key={news.newsTitle}
+              key={index}
               thumbnailSrc={news.imgSrc}
               title={news.newsTitle}
               summary={news.newsSummary}

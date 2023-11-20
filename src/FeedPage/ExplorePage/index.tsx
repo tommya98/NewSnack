@@ -9,10 +9,10 @@ const ExplorePage = () => {
     <Container>
       <Title date="Today" />
       <Divider />
-      {mockData.map((news) => {
+      {mockData.map((news, index) => {
         return (
           <NewsItem
-            key={news.newsTitle}
+            key={index}
             thumbnailSrc={news.imgSrc}
             title={news.newsTitle}
             summary={news.newsSummary}

@@ -13,10 +13,10 @@ const HomePage = () => {
       <NewsItemContainer>
         <SubTitle label="News" />
 
-        {mockData.map((news) => {
+        {mockData.map((news, index) => {
           return (
             <NewsItem
-              key={news.newsTitle}
+              key={index}
               thumbnailSrc={news.imgSrc}
               title={news.newsTitle}
               summary={news.newsSummary}
@@ -29,10 +29,10 @@ const HomePage = () => {
       <NewsItemContainer>
         <SubTitle label="Youtube" />
 
-        {mockData.map((news) => {
+        {mockData.map((news, index) => {
           return (
             <NewsItem
-              key={news.newsTitle}
+              key={index * 11}
               thumbnailSrc={news.imgSrc}
               title={news.newsTitle}
               summary={news.newsSummary}

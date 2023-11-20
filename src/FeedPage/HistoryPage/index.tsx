@@ -10,10 +10,10 @@ const HistoryPage = () => {
       <Container>
         <Title date="Today" />
         <Divider />
-        {mockData.map((news) => {
+        {mockData.map((news, index) => {
           return (
             <NewsItem
-              key={news.newsTitle}
+              key={index}
               thumbnailSrc={news.imgSrc}
               title={news.newsTitle}
               summary={news.newsSummary}
@@ -25,10 +25,10 @@ const HistoryPage = () => {
       <Container>
         <Title date="Yesterday" />
         <Divider />
-        {mockData.map((news) => {
+        {mockData.map((news, index) => {
           return (
             <NewsItem
-              key={news.newsTitle}
+              key={index * 11}
               thumbnailSrc={news.imgSrc}
               title={news.newsTitle}
               summary={news.newsSummary}
