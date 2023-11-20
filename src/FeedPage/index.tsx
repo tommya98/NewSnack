@@ -17,7 +17,6 @@ const ContentLayout = styled(Box)`
   display: flex;
   flex-direction: column; /* 콘텐츠 레이아웃을 위해 column 방향을 설정 */
   flex-grow: 1; /* Sidebar 옆에서 나머지 공간을 채우도록 설정 */
-  margin-left: 200px;
 `;
 
 const MainContent = styled(Box)`
