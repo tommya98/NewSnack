@@ -4,15 +4,19 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import React from "react";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import AppLogo from "./AppLogo";
-import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+
+// Icon Import
+import HomeIcon from '@mui/icons-material/Home';
+import ExploreIcon from '@mui/icons-material/Explore';
+import HistoryIcon from '@mui/icons-material/History';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 240;
 
@@ -56,6 +60,14 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
     navigate("/");
   }
 
+  type IconKey = 'Home' | 'Explore' | 'History' | 'Favorite';
+  const IconDict: Record<IconKey, any>  = {
+    "Home" : <HomeIcon/>,
+    "Explore" : <ExploreIcon/>,
+    "History" : <HistoryIcon/>,
+    "Favorite" : <FavoriteIcon/>,
+  };
+
   return (
       <Drawer
         sx={{
@@ -64,6 +76,7 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            borderWidth: '0px',
           },
         }}
         variant="permanent"
@@ -86,7 +99,7 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
               onClick={() => handleListItemClick(text, index)
                 }>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {IconDict[text as IconKey]}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

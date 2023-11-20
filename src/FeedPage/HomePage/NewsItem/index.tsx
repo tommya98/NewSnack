@@ -2,32 +2,64 @@ import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import IconButton from "@mui/material/IconButton";
+import { useState } from "react";
 
 // Emotion을 사용하여 추가적인 스타일링을 위한 스타일 컴포넌트를 정의합니다.
 const CustomCard = styled(Card)`
   overflow: hidden;
   transition: transform 200ms;
-  &:hover {
-    transform: scale(1.05);
-  }
   div {
     margin: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
+  box-shadow: none;
+  background-color: transparent;
 `;
 
 const CustomImage = styled("img")`
   object-cover;
   transition: transform 200ms;
-  border-radius: 4px;
-  &:hover {
-    transform: scale(1.1);
-  }
+  border-radius: 8px;
 `;
 
-const Icon = styled("svg")({
-  width: "1.25rem", // Equivalent to w-5
-  height: "1.25rem", // Equivalent to h-5
-});
+const Wrapper = styled.div`
+  position: relative;
+`;
+
+const MoreButton = styled(IconButton)`
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+`;
+
+const Title = styled(Typography)`
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px; /* 140% */
+`;
+
+const Author = styled(Typography)`
+  color: rgba(0, 0, 0, 0.40);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px; /* 80% */
+`;
+
+const Summary = styled(Typography)`
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px; /* 113.333% */
+`;
 
 interface ComponentProps {
   title: string;
@@ -44,41 +76,45 @@ export default function Component({
   thumbnailSrc,
   isLiked,
 }: ComponentProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <CustomCard>
-      <CardContent sx={{ display: "flex", flexDirection: "row", gap: 2, p: 2 }}>
-        <div style={{ flexShrink: 0 }}>
-          <CustomImage
-            alt="Thumbnail"
-            height="80"
-            src={thumbnailSrc}
-            width="80"
-            style={{
-              aspectRatio: "1 / 1",
-            }}
-          />
-        </div>
-        <div style={{ width: "100%" }}>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            By {author}
-          </Typography>
-          <Typography variant="body2">{summary}</Typography>
-        </div>
-        <Icon
-          viewBox="0 0 24 24"
-          fill={isLiked ? "red" : "none"}
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          onClick={() => console.log(title)}
-        >
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 3.5 2.41A4.481 4.481 0 0 1 12 7c1.54 0 3.04.99 3.5 2.41A4.481 4.481 0 0 1 18.5 5C20.5 5 22 6.5 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </Icon>
-      </CardContent>
+    <CustomCard 
+    onMouseEnter={() => setIsHovered(true)}
+    onMouseLeave={() => setIsHovered(false)}
+    >
+      <Wrapper>
+        <CardContent sx={{ display: "flex", flexDirection: "row", gap: 2, p: 2 }}>
+          <div style={{ flexShrink: 0 }}>
+            <CustomImage
+              alt="Thumbnail"
+              height="90"
+              src={thumbnailSrc}
+              width="135"
+              style={{
+                aspectRatio: "1 / 1",
+              }}
+            />
+          </div>
+          <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "8px"  }}>
+            <Title>
+              {title}
+            </Title>
+            <Author>
+              By {author}
+            </Author>
+            <Summary>
+              {summary}
+            </Summary>
+          </div>
+          {/* if Hover on, show MoreButton */}
+          {isHovered && 
+          <MoreButton aria-label="more">
+            <MoreVertIcon />
+          </MoreButton>}
+          
+        </CardContent>
+      </Wrapper>
     </CustomCard>
   );
 }
