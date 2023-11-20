@@ -2,11 +2,13 @@ import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import NewsItem from "../HomePage/NewsItem";
 import Title from "../HomePage/Title";
+import Divider from "@mui/material/Divider";
 
 const ExplorePage = () => {
   return (
     <Container>
       <Title date="Today" />
+      <Divider />
       {mockData.map((news) => {
         return (
           <NewsItem
@@ -24,11 +26,12 @@ const ExplorePage = () => {
 
 const Container = styled(Box)`
   display: flex;
+  max-width: 60%;
   flex-direction: column;
   align-content: center;
   justify-content: center;
-  margin: 2rem 10rem 5rem 10rem;
-  gap: 60px;
+  margin: 4rem auto 5rem auto;
+  gap: 30px;
 `;
 
 export default ExplorePage;
