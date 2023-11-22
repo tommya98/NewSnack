@@ -2,16 +2,18 @@ import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import NewsItem from "../HomePage/NewsItem";
 import Title from "../HomePage/Title";
+import Divider from "@mui/material/Divider";
 
 const HistoryPage = () => {
   return (
     <>
       <Container>
         <Title date="Today" />
-        {mockData.map((news) => {
+        <Divider />
+        {mockData.map((news, index) => {
           return (
             <NewsItem
-              key={news.newsTitle}
+              key={index}
               thumbnailSrc={news.imgSrc}
               title={news.newsTitle}
               summary={news.newsSummary}
@@ -22,10 +24,11 @@ const HistoryPage = () => {
       </Container>
       <Container>
         <Title date="Yesterday" />
-        {mockData.map((news) => {
+        <Divider />
+        {mockData.map((news, index) => {
           return (
             <NewsItem
-              key={news.newsTitle}
+              key={index * 11}
               thumbnailSrc={news.imgSrc}
               title={news.newsTitle}
               summary={news.newsSummary}
@@ -40,11 +43,12 @@ const HistoryPage = () => {
 
 const Container = styled(Box)`
   display: flex;
+  max-width: 60%;
   flex-direction: column;
   align-content: center;
   justify-content: center;
-  margin: 2rem 10rem 5rem 10rem;
-  gap: 60px;
+  margin: 4rem auto 5rem auto;
+  gap: 30px;
 `;
 
 export default HistoryPage;

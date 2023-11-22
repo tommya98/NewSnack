@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import NewsItem from "./NewsItem";
 import Title from "./Title";
 import SubTitle from "./SubTitle";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 
 const HomePage = () => {
   return (
@@ -11,7 +11,7 @@ const HomePage = () => {
       <Title date="Today" />
       <Divider />
       <NewsItemContainer>
-      <SubTitle label="News" />
+        <SubTitle label="News" />
 
       {NewsMockData.map((news) => {
         return (
@@ -27,7 +27,7 @@ const HomePage = () => {
       </NewsItemContainer>
 
       <NewsItemContainer>
-      <SubTitle label="Youtube" />
+        <SubTitle label="Youtube" />
 
       {YoutubeMockData.map((news) => {
         return (

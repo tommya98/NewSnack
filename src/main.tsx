@@ -1,10 +1,17 @@
 import React from "react";
+import { createTheme, ThemeProvider } from "@mui/material";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SplashPage from "./SplashPage";
 import SignIn from "./SignInPage";
 import SignUp from "./SignUpPage";
 import FeedPage from "./FeedPage";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Pretendard", "Roboto"].join(","),
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -27,6 +34,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
