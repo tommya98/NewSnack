@@ -53,7 +53,10 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
     setSelectedIndex(index);
   };
 
-  const Logout = () => {
+  const Logout = async () => {
+    await fetch("http://localhost:8000/api/user/logout", {
+      method: "POST",
+    });
     navigate("/");
   };
 
