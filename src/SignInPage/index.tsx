@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,6 +10,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import store from "../localStorage";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
@@ -24,7 +23,7 @@ function Copyright(props: any) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        NewSnack
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -35,14 +34,31 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
+  accessExpired: number;
+  userId: number;
+  enabled: boolean;
+}
+
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+    const response = await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: data.get("email"),
+        password: data.get("password"),
+      }),
     });
+    const loginResult: LoginResponse = await response.json();
+    store.set("accessToken", loginResult.accessToken);
+    store.set("refreshToken", loginResult.refreshToken);
+    store.set("accessExpired", loginResult.accessExpired);
+    store.set("userId", loginResult.userId);
+    store.set("enabled", loginResult.enabled);
   };
 
   return (
@@ -88,10 +104,6 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"
