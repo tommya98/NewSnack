@@ -4,26 +4,32 @@ import AppDescription from "./Description";
 import NewsCard from "./NewsCard";
 import Box from "@mui/material/Box";
 
-const MiddleSection = () => {
+interface NewsProps {
+  title: string;
+  imageURL: string;
+  detail: string;
+}
+
+const MiddleSection = ({ news }: { news: NewsProps[] }) => {
   return (
     <Container>
       <Heading message="Recommendations for You" />
       <AppDescription message="Discover new content based on your interests"></AppDescription>
       <NewsBox>
         <NewsCard
-          imgSrc={mockData[0].imgSrc}
-          newsTitle={mockData[0].newsTitle}
-          newsSummary={mockData[0].newsSummary}
+          imgSrc={news[0].imageURL}
+          newsTitle={news[0].title}
+          newsSummary=""
         />
         <NewsCard
-          imgSrc={mockData[1].imgSrc}
-          newsTitle={mockData[1].newsTitle}
-          newsSummary={mockData[1].newsSummary}
+          imgSrc={news[1].imageURL}
+          newsTitle={news[1].title}
+          newsSummary=""
         />
         <NewsCard
-          imgSrc={mockData[2].imgSrc}
-          newsTitle={mockData[2].newsTitle}
-          newsSummary={mockData[2].newsSummary}
+          imgSrc={news[2].imageURL}
+          newsTitle={news[2].title}
+          newsSummary=""
         />
       </NewsBox>
     </Container>
@@ -46,24 +52,3 @@ const NewsBox = styled(Box)`
 `;
 
 export default MiddleSection;
-
-const mockData = [
-  {
-    imgSrc: "https://picsum.photos/200/300",
-    newsTitle: "뉴스 제목 1",
-    newsSummary:
-      "뉴스 기사 1 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-  },
-  {
-    imgSrc: "https://picsum.photos/200/300",
-    newsTitle: "뉴스 제목 2",
-    newsSummary:
-      "뉴스 기사 2 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-  },
-  {
-    imgSrc: "https://picsum.photos/200/300",
-    newsTitle: "뉴스 제목 3",
-    newsSummary:
-      "뉴스 기사 3 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-  },
-];

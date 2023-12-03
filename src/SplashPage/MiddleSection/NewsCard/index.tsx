@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 interface Props {
   readonly imgSrc: string;
@@ -44,6 +44,7 @@ const Text = styled.div`
 const Title = styled.h3`
   font-size: 20px;
   font-weight: 600;
+  height: 50px;
 `;
 
 const Summary = styled.div`
