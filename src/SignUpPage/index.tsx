@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
+import { Divider } from "@mui/material";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
@@ -40,12 +41,15 @@ export default function SignUp() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const response = await fetch("http://localhost:8080/api/auth/signup", {
+    const response = await fetch("http://localhost:8000/api/user/dj-rest-auth/registration/", {
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
-        name: data.get("name"),
-        email: data.get("email"),
-        password: data.get("password"),
+        username: data.get("name"),
+        password1: data.get("password1"),
+        password2: data.get("password2"),
       }),
     });
     if (response.ok) {
@@ -104,13 +108,23 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  id="password1"
                   label="Password"
+                  name="password1"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="password2"
+                  label="Password confirm"
+                  name="password2"
+                  type="password"
+                />
+              </Grid>
+
             </Grid>
             <Button
               type="submit"
@@ -119,6 +133,25 @@ export default function SignUp() {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
+            </Button>
+            <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
+            <Button
+              startIcon={<img src="/kakao_button.png" alt="kakao" style={{ width: '1.5rem', position: 'absolute', left: '0.5rem', top: '0.5rem' }}/>}
+              style={{ 
+                backgroundColor: '#FEE500', 
+                marginBottom: '2rem', 
+                color: 'rgba(0, 0, 0, 0.85)', 
+                display: 'flex', 
+                justifyContent: 'center', 
+                position: 'relative',
+                textTransform: 'none'
+
+              }}
+              type="submit"
+              fullWidth
+              variant="contained"
+            >
+              Login with Kakao
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
