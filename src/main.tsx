@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SplashPage from "./SplashPage";
 import SignIn from "./SignInPage";
 import SignUp from "./SignUpPage";
+import InitialSetup from "./InitialSetup";
 import FeedPage from "./FeedPage";
 
 const theme = createTheme({
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignUp />,
+  },
+  {
+    path: "initialsetup",
+    element: <InitialSetup />,
   },
   {
     path: "feed",

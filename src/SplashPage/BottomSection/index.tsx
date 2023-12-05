@@ -3,25 +3,31 @@ import Heading from "./Heading";
 import TrendingNews from "./TrendingNews";
 import Box from "@mui/material/Box";
 
-const BottomSection = () => {
+interface NewsProps {
+  title: string;
+  imageURL: string;
+  detail: string;
+}
+
+const BottomSection = ({ news }: { news: NewsProps[] }) => {
   return (
     <Container>
       <Heading message="Trending Articles" />
       <NewsBox>
         <TrendingNews
-          imgSrc={mockData[0].imgSrc}
-          newsTitle={mockData[0].newsTitle}
-          newsSummary={mockData[0].newsSummary}
+          imgSrc={news[0].imageURL}
+          newsTitle={news[0].title}
+          newsSummary={news[0].detail}
         />
         <TrendingNews
-          imgSrc={mockData[1].imgSrc}
-          newsTitle={mockData[1].newsTitle}
-          newsSummary={mockData[1].newsSummary}
+          imgSrc={news[1].imageURL}
+          newsTitle={news[1].title}
+          newsSummary={news[1].detail}
         />
         <TrendingNews
-          imgSrc={mockData[2].imgSrc}
-          newsTitle={mockData[2].newsTitle}
-          newsSummary={mockData[2].newsSummary}
+          imgSrc={news[2].imageURL}
+          newsTitle={news[2].title}
+          newsSummary={news[2].detail}
         />
       </NewsBox>
     </Container>

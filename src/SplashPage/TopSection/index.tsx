@@ -7,7 +7,7 @@ import InputText from "./InputText";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
-const TopSection = () => {
+const TopSection = ({ img }: { img: string }) => {
   const [inputValue, setInputValue] = useState("");
   const onChange = (text: string) => {
     setInputValue(text);
@@ -28,7 +28,7 @@ const TopSection = () => {
         </Button>
       </LeftBox>
       <RightBox>
-        <AppImage imgSrc="https://picsum.photos/200/300" />
+        <AppImage imgSrc={img} />
       </RightBox>
     </Container>
   );
