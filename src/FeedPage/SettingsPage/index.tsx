@@ -1,35 +1,9 @@
-import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
-import store from "../../localStorage";
-
-interface UserInfoRespnose {
-  id: number;
-  username: string;
-  nickname: string;
-  birthYear: number;
-  kakaoIsLinked: boolean;
-  emailIsLinked: boolean;
-  kakaoAddress: string;
-  emailAddress: string;
-  frequency: number;
-  receptTime: string;
-}
+import { useUserInfo } from "../../apiHook";
 
 const SettingsPage = () => {
-  const [userInfo, setUserInfo] = useState<UserInfoRespnose>();
-  useEffect(() => {
-    fetch("http://localhost:8000/api/user/dj-rest-auth/user/", {
-      headers: {
-        Authorization: `Bearer ${store.get("access_token")}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUserInfo(data);
-      });
-  }, []);
+  const userInfo = useUserInfo();
 
   return userInfo ? (
     <Container>

@@ -3,24 +3,29 @@ import Box from "@mui/material/Box";
 import NewsItem from "../HomePage/NewsItem";
 import Title from "../HomePage/Title";
 import Divider from "@mui/material/Divider";
+import { usePublicFeed } from "../../apiHook";
 
 const ExplorePage = () => {
-  return (
+  const news = usePublicFeed("sports");
+
+  return news ? (
     <Container>
       <Title date="Today" />
       <Divider />
-      {mockData.map((news, index) => {
+      {news.publicFeeds.map((item) => {
         return (
           <NewsItem
-            key={index}
-            thumbnailSrc={news.imgSrc}
-            title={news.newsTitle}
-            summary={news.newsSummary}
-            author={news.author}
+            key={item.id}
+            thumbnailSrc={item.imgURL}
+            title={item.title}
+            summary={item.content}
+            author={item.date}
           />
         );
       })}
     </Container>
+  ) : (
+    <></>
   );
 };
 
