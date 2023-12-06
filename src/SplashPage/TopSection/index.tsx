@@ -16,15 +16,15 @@ const TopSection = ({ img }: { img: string }) => {
   return (
     <Container>
       <LeftBox>
-        <Heading message="Welcome to Newsnack" />
-        <AppDescription message="Get the latest news and articles from around the web" />
+        <Heading message="Welcome to NewSnack" />
+        <AppDescription message="개인회된 최신 뉴스와 정보를 쉽게 얻어가세요." />
         <InputText
-          label="Enter your interests"
+          label="관심사를 입력하세요."
           value={inputValue}
           onChange={onChange}
         />
         <Button variant="contained" size="small">
-          Submit
+          입력
         </Button>
       </LeftBox>
       <RightBox>
