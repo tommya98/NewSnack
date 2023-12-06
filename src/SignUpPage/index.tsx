@@ -13,6 +13,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
 
+interface signUpResponse {
+  access_token: string;
+  refresh_token: string;
+  user: {
+    id: number;
+    username: string;
+  };
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
   return (
@@ -49,26 +58,17 @@ export default function SignUp() {
         },
         body: JSON.stringify({
           username: data.get("name"),
-          // email: data.get("email"),
           password1: data.get("password"),
           password2: data.get("password"),
         }),
       }
     );
-    // axios
-    //   .post("http://localhost:8000/api/user/dj-rest-auth/registration/", {
-    //     username: data.get("name"),
-    //     password1: data.get("password"),
-    //     password2: data.get("password"),
-    //   })
-    //   .then(function (response: any) {
-    //     console.log(response);
-    //   });
-    if (response.ok) {
-      navigate("/initialsetup");
-      store.set("name", data.get("name"));
-      store.set("email", data.get("email"));
-    }
+    const jsonData: signUpResponse = await response.json();
+    store.set("user", jsonData.user);
+    store.set("email", data.get("email"));
+    store.set("access_token", jsonData.access_token);
+    store.set("refresh_token", jsonData.refresh_token);
+    navigate("/initialsetup");
   };
 
   return (
