@@ -1,8 +1,23 @@
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
+import { useUserInfo } from "../../apiHook";
 
 const SettingsPage = () => {
-  return <Container>SettingsPage</Container>;
+  const userInfo = useUserInfo();
+
+  return userInfo ? (
+    <Container>
+      <h1>임시 출력 테스트용</h1>
+      <div>{`유저이름: ${userInfo.username}`}</div>
+      <div>{`닉네임: ${userInfo.nickname}`}</div>
+      <div>{`출생년도: ${userInfo.birthYear}`}</div>
+      <div>{`이메일: ${userInfo.emailAddress}`}</div>
+      <div>{`카카오이메일: ${userInfo.kakaoAddress}`}</div>
+      <div>{`알림주기: ${userInfo.frequency}`}</div>
+    </Container>
+  ) : (
+    <></>
+  );
 };
 
 const Container = styled(Box)`

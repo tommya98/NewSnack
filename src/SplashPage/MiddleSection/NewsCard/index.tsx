@@ -44,7 +44,11 @@ const Text = styled.div`
 const Title = styled.h3`
   font-size: 20px;
   font-weight: 600;
-  height: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 
 const Summary = styled.div`

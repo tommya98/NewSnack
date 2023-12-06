@@ -4,8 +4,11 @@ import NewsItem from "./NewsItem";
 import Title from "./Title";
 import SubTitle from "./SubTitle";
 import Divider from "@mui/material/Divider";
+import { usePrivateFeed } from "../../apiHook";
 
 const HomePage = () => {
+  const news = usePrivateFeed();
+
   return (
     <Container>
       <Title date="Today" />
@@ -13,17 +16,17 @@ const HomePage = () => {
       <NewsItemContainer>
         <SubTitle label="News" />
 
-      {NewsMockData.map((news) => {
-        return (
-          <NewsItem
-            key={news.newsTitle}
-            thumbnailSrc={news.imgSrc}
-            title={news.newsTitle}
-            summary={news.newsSummary}
-            author={news.author}
-          />
-        );
-      })}
+        {news.map((item) => {
+          return (
+            <NewsItem
+              key={item.id}
+              thumbnailSrc={item.imgURL}
+              title={item.title}
+              summary={item.content}
+              author={item.date}
+            />
+          );
+        })}
       </NewsItemContainer>
 
       <NewsItemContainer>
