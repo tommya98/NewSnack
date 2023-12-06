@@ -163,26 +163,9 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Kakaologin />
             <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
-            <Button
-              startIcon={<img src="/kakao_button.png" alt="kakao" style={{ width: '1.5rem', position: 'absolute', left: '0.5rem', top: '0.5rem' }}/>}
-              style={{ 
-                backgroundColor: '#FEE500', 
-                marginBottom: '2rem', 
-                color: 'rgba(0, 0, 0, 0.85)', 
-                display: 'flex', 
-                justifyContent: 'center', 
-                position: 'relative',
-                textTransform: 'none'
+            <Kakaologin />
 
-              }}
-              type="submit"
-              fullWidth
-              variant="contained"
-            >
-              Login with Kakao
-            </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body2">

@@ -10,9 +10,27 @@ const Kakaologin = () => {
   };
 
   return (
-    <Button type="button" fullWidth variant="contained" onClick={loginHandler}>
-      카카오 로그인
-    </Button>
+    
+  <Button
+  startIcon={<img src="/kakao_button.png" alt="kakao" style={{ width: '1.5rem', position: 'absolute', left: '0.5rem', top: '0.5rem' }}/>}
+  style={{ 
+    backgroundColor: '#FEE500', 
+    marginBottom: '2rem', 
+    color: 'rgba(0, 0, 0, 0.85)', 
+    display: 'flex', 
+    justifyContent: 'center', 
+    position: 'relative',
+    textTransform: 'none',
+    // onClick={loginHandler}
+
+  }}
+  type="submit"
+  fullWidth
+  variant="contained"
+  >
+  Login with Kakao
+  </Button>
+
   );
 };
 
