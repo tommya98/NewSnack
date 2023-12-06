@@ -14,6 +14,15 @@ import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
 import { Divider } from "@mui/material";
 
+interface signUpResponse {
+  access_token: string;
+  refresh_token: string;
+  user: {
+    id: number;
+    username: string;
+  };
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
   return (
@@ -41,22 +50,26 @@ export default function SignUp() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const response = await fetch("http://localhost:8000/api/user/dj-rest-auth/registration/", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: data.get("name"),
-        password1: data.get("password1"),
-        password2: data.get("password2"),
-      }),
-    });
-    if (response.ok) {
-      navigate("/initialsetup");
-      store.set("name", data.get("name"));
-      store.set("email", data.get("email"));
-    }
+    const response = await fetch(
+      "http://localhost:8000/api/user/dj-rest-auth/registration/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: data.get("name"),
+          password1: data.get("password"),
+          password2: data.get("password"),
+        }),
+      }
+    );
+    const jsonData: signUpResponse = await response.json();
+    store.set("user", jsonData.user);
+    store.set("email", data.get("email"));
+    store.set("access_token", jsonData.access_token);
+    store.set("refresh_token", jsonData.refresh_token);
+    navigate("/initialsetup");
   };
 
   return (

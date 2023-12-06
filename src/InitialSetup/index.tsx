@@ -20,20 +20,24 @@ export default function InitialSetup() {
   const [freq, setFreq] = React.useState(1);
   const [interest, setInterest] = React.useState<string[]>([]);
   const interestList = [
-    "정치",
-    "사회",
-    "국제",
-    "과학",
-    "경제",
-    "스포츠",
-    "트렌드",
+    { ko: "정치", en: "politics" },
+    { ko: "사회", en: "society" },
+    { ko: "국제", en: "international" },
+    { ko: "과학", en: "science" },
+    { ko: "경제", en: "economy" },
+    { ko: "스포츠", en: "sports" },
+    { ko: "트렌드", en: "trend" },
   ];
   const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const response = await fetch("http://localhost:8000/api/user/initialize", {
+    const response = await fetch("http://localhost:8000/api/user/initialize/", {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${store.get("access_token")}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         nickname: data.get("nickname"),
         birthYear: data.get("birthYear"),
@@ -43,7 +47,7 @@ export default function InitialSetup() {
         kakaoAddress: data.get("kakaoAddress"),
         emailAddress: store.get("email"),
         frequency: freq,
-        receptTime: 12,
+        receptTime: ["09:00"],
       }),
     });
     if (response.ok) {
@@ -79,6 +83,7 @@ export default function InitialSetup() {
               name="nickname"
               label="닉네임"
               id="nickname"
+              autoFocus
             />
             <TextField
               margin="normal"
@@ -87,7 +92,6 @@ export default function InitialSetup() {
               name="birthYear"
               label="태어난 년도"
               id="birthYear"
-              autoFocus
             />
             <TextField
               margin="normal"
@@ -96,7 +100,6 @@ export default function InitialSetup() {
               name="kakaoAddress"
               label="카카오톡 주소"
               id="kakaoAddress"
-              autoFocus
             />
             <Typography variant="h5">하루 수신 횟수</Typography>
             <Slider
@@ -106,7 +109,7 @@ export default function InitialSetup() {
               step={1}
               marks
               min={1}
-              max={10}
+              max={5}
               value={freq}
               onChange={(e) => {
                 if (e && e.target) {
@@ -116,19 +119,21 @@ export default function InitialSetup() {
             />
             <Typography variant="h5">관심사</Typography>
             <FormGroup row>
-              {interestList.map((inte) => {
+              {interestList.map((item) => {
                 return (
                   <FormControlLabel
-                    key={inte}
+                    key={item.ko}
                     onChange={(e) => {
                       if (e.target.checked == true) {
-                        setInterest([...interest, inte]);
+                        setInterest([...interest, item.en]);
                       } else {
-                        setInterest(interest.filter((item) => item !== inte));
+                        setInterest(
+                          interest.filter((inter) => inter !== item.en)
+                        );
                       }
                     }}
                     control={<Checkbox />}
-                    label={inte}
+                    label={item.ko}
                   />
                 );
               })}

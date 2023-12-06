@@ -5,9 +5,14 @@ import NewsCard from "./NewsCard";
 import Box from "@mui/material/Box";
 
 interface NewsProps {
+  id: number;
   title: string;
-  imageURL: string;
-  detail: string;
+  content: string;
+  comment: string;
+  originalURL: string;
+  date: string;
+  interest: string;
+  imgURL: string;
 }
 
 const MiddleSection = ({ news }: { news: NewsProps[] }) => {
@@ -17,19 +22,19 @@ const MiddleSection = ({ news }: { news: NewsProps[] }) => {
       <AppDescription message="Discover new content based on your interests"></AppDescription>
       <NewsBox>
         <NewsCard
-          imgSrc={news[0].imageURL}
+          imgSrc={news[0].imgURL}
           newsTitle={news[0].title}
-          newsSummary=""
+          newsSummary={news[0].content}
         />
         <NewsCard
-          imgSrc={news[1].imageURL}
+          imgSrc={news[1].imgURL}
           newsTitle={news[1].title}
-          newsSummary=""
+          newsSummary={news[1].content}
         />
         <NewsCard
-          imgSrc={news[2].imageURL}
+          imgSrc={news[2].imgURL}
           newsTitle={news[2].title}
-          newsSummary=""
+          newsSummary={news[2].content}
         />
       </NewsBox>
     </Container>

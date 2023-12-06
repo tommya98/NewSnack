@@ -10,10 +10,14 @@ import { useEffect, useState } from "react";
 
 interface NewsResponse {
   publicFeeds: {
-    publicFeedId: number;
+    id: number;
     title: string;
-    imageURL: string;
-    detail: string;
+    content: string;
+    comment: string;
+    originalURL: string;
+    date: string;
+    interest: string;
+    imgURL: string;
   }[];
 }
 
@@ -21,44 +25,54 @@ const SplashPage = () => {
   const [news, setNews] = useState<NewsResponse>({
     publicFeeds: [
       {
-        publicFeedId: 1,
-        title: "손흥민, 베트남전 출전할까",
-        imageURL: "https://picsum.photos/200/300",
-        detail: "http://localhost:8080/api/feed/public/1",
+        id: 1,
+        title: "제목1",
+        content:
+          "뉴스 기사 1 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
+        comment: "코멘트1",
+        originalURL: "aaa.com",
+        date: "2023-12-04",
+        interest: "sports",
+        imgURL: "https://picsum.photos/id/1/200/300",
       },
       {
-        publicFeedId: 2,
-        title: "쇼트트랙 대표팀, 월드컵 출전 위해 캐나다로 출국",
-        imageURL: "https://picsum.photos/200/300",
-        detail: "http://localhost:8080/api/feed/public/2",
+        id: 1,
+        title: "제목2",
+        content:
+          "뉴스 기사 2 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
+        comment: "코멘트2",
+        originalURL: "aaa.com",
+        date: "2023-12-04",
+        interest: "sports",
+        imgURL: "https://picsum.photos/id/2/200/300",
       },
       {
-        publicFeedId: 3,
-        title: "손흥민, 베트남전 출전할까",
-        imageURL: "https://picsum.photos/200/300",
-        detail: "http://localhost:8080/api/feed/public/1",
+        id: 1,
+        title: "제목2",
+        content:
+          "뉴스 기사 3 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
+        comment: "코멘트2",
+        originalURL: "aaa.com",
+        date: "2023-12-04",
+        interest: "sports",
+        imgURL: "https://picsum.photos/id/3/200/300",
       },
-      // ... (다른 피드)
     ],
   });
   useEffect(() => {
-    fetch("http://localhost:8080/api/feed/public/list", {
-      // body: JSON.stringify({
-      //   interest: "스포츠",
-      //   date: 20231201,
-      // }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setNews(data);
-      });
+    // fetch("http://localhost:8000/api/feed/public/list?interest=sports", {})
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setNews(data);
+    //   });
   }, []);
 
   return news ? (
     <Container>
       <Link to={"feed"}>임시 피드 이동</Link>
       <Header />
-      <TopSection img={news.publicFeeds[0].imageURL} />
+      <TopSection img={news.publicFeeds[0].imgURL} />
       <MiddleSection news={news.publicFeeds} />
       <BottomSection news={news.publicFeeds} />
       <Footer />
