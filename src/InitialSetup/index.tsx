@@ -83,6 +83,7 @@ export default function InitialSetup() {
               name="nickname"
               label="닉네임"
               id="nickname"
+              autoFocus
             />
             <TextField
               margin="normal"
@@ -91,7 +92,6 @@ export default function InitialSetup() {
               name="birthYear"
               label="태어난 년도"
               id="birthYear"
-              autoFocus
             />
             <TextField
               margin="normal"
@@ -100,7 +100,6 @@ export default function InitialSetup() {
               name="kakaoAddress"
               label="카카오톡 주소"
               id="kakaoAddress"
-              autoFocus
             />
             <Typography variant="h5">하루 수신 횟수</Typography>
             <Slider
