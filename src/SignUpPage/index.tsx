@@ -146,7 +146,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="password2"
-                  label="Password confirm"
+                  label="비밀번호 확인"
                   name="password2"
                   type="password"
                 />
