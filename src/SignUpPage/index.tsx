@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
+import Kakaologin from "./KakaoLogin";
 import { Divider } from "@mui/material";
 import { FormHelperText } from '@mui/material';
 
@@ -162,6 +163,7 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
+            <Kakaologin />
             <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
             <Button
               startIcon={<img src="/kakao_button.png" alt="kakao" style={{ width: '1.5rem', position: 'absolute', left: '0.5rem', top: '0.5rem' }}/>}
