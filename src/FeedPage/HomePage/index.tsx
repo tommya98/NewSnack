@@ -11,7 +11,7 @@ const HomePage = () => {
 
   return (
     <Container>
-      <Title date="Today" />
+      <Title text="Feed" />
       <Divider />
       <NewsItemContainer>
         <SubTitle label="News" />

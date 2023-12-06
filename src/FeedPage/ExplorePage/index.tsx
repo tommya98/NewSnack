@@ -10,7 +10,7 @@ const ExplorePage = () => {
 
   return news ? (
     <Container>
-      <Title date="Today" />
+      <Title text="Today" />
       <Divider />
       {news.publicFeeds.map((item) => {
         return (

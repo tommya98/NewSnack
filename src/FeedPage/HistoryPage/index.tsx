@@ -8,7 +8,7 @@ const HistoryPage = () => {
   return (
     <>
       <Container>
-        <Title date="Today" />
+        <Title text="Today" />
         <Divider />
         {mockData.map((news, index) => {
           return (
@@ -23,7 +23,7 @@ const HistoryPage = () => {
         })}
       </Container>
       <Container>
-        <Title date="Yesterday" />
+        <Title text="Yesterday" />
         <Divider />
         {mockData.map((news, index) => {
           return (

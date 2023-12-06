@@ -8,7 +8,7 @@ const FavoritePage = () => {
   return (
     <>
       <Container>
-        <Title date="Favorite" />
+        <Title text="Favorite" />
         <Divider />
         {mockData.map((news, index) => {
           return (

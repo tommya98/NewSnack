@@ -9,9 +9,9 @@ const DateTitle = styled(Typography)`
   line-height: 28px; /* 140% */
 `;
 
-const Title = ({ date }: { date: string }) => {
+const Title = ({ text }: { text: string }) => {
   
-  return (<DateTitle>{date}</DateTitle>)
+  return (<DateTitle>{text}</DateTitle>)
 };
 
 export default Title;
