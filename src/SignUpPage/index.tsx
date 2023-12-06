@@ -40,14 +40,30 @@ export default function SignUp() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const response = await fetch("http://localhost:8080/api/auth/signup", {
-      method: "POST",
-      body: JSON.stringify({
-        name: data.get("name"),
-        email: data.get("email"),
-        password: data.get("password"),
-      }),
-    });
+    const response = await fetch(
+      "http://localhost:8000/api/user/dj-rest-auth/registration/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: data.get("name"),
+          // email: data.get("email"),
+          password1: data.get("password"),
+          password2: data.get("password"),
+        }),
+      }
+    );
+    // axios
+    //   .post("http://localhost:8000/api/user/dj-rest-auth/registration/", {
+    //     username: data.get("name"),
+    //     password1: data.get("password"),
+    //     password2: data.get("password"),
+    //   })
+    //   .then(function (response: any) {
+    //     console.log(response);
+    //   });
     if (response.ok) {
       navigate("/initialsetup");
       store.set("name", data.get("name"));

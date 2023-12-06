@@ -4,9 +4,14 @@ import TrendingNews from "./TrendingNews";
 import Box from "@mui/material/Box";
 
 interface NewsProps {
+  id: number;
   title: string;
-  imageURL: string;
-  detail: string;
+  content: string;
+  comment: string;
+  originalURL: string;
+  date: string;
+  interest: string;
+  imgURL: string;
 }
 
 const BottomSection = ({ news }: { news: NewsProps[] }) => {
@@ -15,19 +20,19 @@ const BottomSection = ({ news }: { news: NewsProps[] }) => {
       <Heading message="Trending Articles" />
       <NewsBox>
         <TrendingNews
-          imgSrc={news[0].imageURL}
+          imgSrc={news[0].imgURL}
           newsTitle={news[0].title}
-          newsSummary={news[0].detail}
+          newsSummary={news[0].content}
         />
         <TrendingNews
-          imgSrc={news[1].imageURL}
+          imgSrc={news[1].imgURL}
           newsTitle={news[1].title}
-          newsSummary={news[1].detail}
+          newsSummary={news[1].content}
         />
         <TrendingNews
-          imgSrc={news[2].imageURL}
+          imgSrc={news[2].imgURL}
           newsTitle={news[2].title}
-          newsSummary={news[2].detail}
+          newsSummary={news[2].content}
         />
       </NewsBox>
     </Container>
@@ -52,24 +57,3 @@ const NewsBox = styled(Box)`
 `;
 
 export default BottomSection;
-
-const mockData = [
-  {
-    imgSrc: "https://picsum.photos/200/300",
-    newsTitle: "뉴스 제목 1",
-    newsSummary:
-      "뉴스 기사 1 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-  },
-  {
-    imgSrc: "https://picsum.photos/200/300",
-    newsTitle: "뉴스 제목 2",
-    newsSummary:
-      "뉴스 기사 2 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-  },
-  {
-    imgSrc: "https://picsum.photos/200/300",
-    newsTitle: "뉴스 제목 3",
-    newsSummary:
-      "뉴스 기사 3 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.",
-  },
-];
