@@ -13,16 +13,16 @@ export interface NewsResponse {
 }
 
 export interface PublicNewsResponse {
-  publicFeeds: {
-    id: number;
-    title: string;
-    content: string;
-    comment: string;
-    originalURL: string;
-    date: string;
-    interest: string;
-    imgURL: string;
-  }[];
+  id: number;
+  title: string;
+  content: string;
+  comment: string;
+  originalURL: string;
+  date: string;
+  interest: string;
+  imgURL: string;
+  liked_user: number[];
+  disliked_user: number[];
 }
 
 export interface UserInfoRespnose {
@@ -58,7 +58,7 @@ const usePrivateFeed = () => {
 };
 
 const usePublicFeed = (interests: string) => {
-  const [news, setNews] = useState<PublicNewsResponse>();
+  const [news, setNews] = useState<PublicNewsResponse[]>();
   useEffect(() => {
     fetch(url + `/api/feed/public/list?interest=${interests}`)
       .then((res) => res.json())

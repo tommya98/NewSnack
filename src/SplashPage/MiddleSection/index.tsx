@@ -3,23 +3,13 @@ import Heading from "./Heading";
 import AppDescription from "./Description";
 import NewsCard from "./NewsCard";
 import Box from "@mui/material/Box";
+import { PublicNewsResponse } from "../../apiHook";
 
-interface NewsProps {
-  id: number;
-  title: string;
-  content: string;
-  comment: string;
-  originalURL: string;
-  date: string;
-  interest: string;
-  imgURL: string;
-}
-
-const MiddleSection = ({ news }: { news: NewsProps[] }) => {
+const MiddleSection = ({ news }: { news: PublicNewsResponse[] }) => {
   return (
     <Container>
       <Heading message="Recommendations for You" />
-      <AppDescription message="Discover new content based on your interests"></AppDescription>
+      <AppDescription message="당신의 관심 기사를 확인하세요."></AppDescription>
       <NewsBox>
         <NewsCard
           imgSrc={news[0].imgURL}

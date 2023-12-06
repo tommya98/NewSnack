@@ -39,6 +39,7 @@ const Text = styled.div`
   flex-direction: column;
   gap: 4px;
   padding-top: 12px;
+  width: 100%;
 `;
 
 const Title = styled.h3`

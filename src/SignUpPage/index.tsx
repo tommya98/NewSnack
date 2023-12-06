@@ -101,7 +101,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            회원가입
           </Typography>
           <Box
             component="form"
@@ -115,7 +115,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="name"
-                  label="Name"
+                  label="아이디"
                   name="name"
                   autoComplete="name"
                 />
@@ -126,7 +126,7 @@ export default function SignUp() {
                 <TextField
                   fullWidth
                   id="email"
-                  label="Email"
+                  label="이메일 주소"
                   name="email"
                   autoComplete="email"
                 />
@@ -136,9 +136,8 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="password1"
-                  label="Password"
                   name="password1"
+                  label="비밀번호"
                   type="password"
                 />
               </Grid>
@@ -161,7 +160,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              회원가입
             </Button>
             <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
             <Kakaologin />
@@ -169,7 +168,7 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body2">
-                  Already have an account? Sign in
+                  이미 계정이 있으신가요? 로그인
                 </Link>
               </Grid>
             </Grid>

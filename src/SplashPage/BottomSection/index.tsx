@@ -2,19 +2,9 @@ import styled from "@emotion/styled";
 import Heading from "./Heading";
 import TrendingNews from "./TrendingNews";
 import Box from "@mui/material/Box";
+import { PublicNewsResponse } from "../../apiHook";
 
-interface NewsProps {
-  id: number;
-  title: string;
-  content: string;
-  comment: string;
-  originalURL: string;
-  date: string;
-  interest: string;
-  imgURL: string;
-}
-
-const BottomSection = ({ news }: { news: NewsProps[] }) => {
+const BottomSection = ({ news }: { news: PublicNewsResponse[] }) => {
   return (
     <Container>
       <Heading message="Trending Articles" />

@@ -14,10 +14,10 @@ export default function Header() {
       </TitleBox>
       <LoginBox>
         <Link to="signin">
-          <LoginLabel text="SignIn" />
+          <LoginLabel text="로그인" />
         </Link>
         <Link to="signup">
-          <LoginLabel text="SignUp" />
+          <LoginLabel text="회원가입" />
         </Link>
       </LoginBox>
     </Container>
