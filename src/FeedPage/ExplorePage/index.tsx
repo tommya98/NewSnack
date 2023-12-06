@@ -4,6 +4,7 @@ import NewsItem from "../HomePage/NewsItem";
 import Title from "../HomePage/Title";
 import Divider from "@mui/material/Divider";
 import { usePublicFeed } from "../../apiHook";
+import store from "../../localStorage";
 
 const ExplorePage = () => {
   const news = usePublicFeed("sports");
@@ -12,7 +13,7 @@ const ExplorePage = () => {
     <Container>
       <Title text="Today" />
       <Divider />
-      {news.publicFeeds.map((item) => {
+      {news.map((item) => {
         return (
           <NewsItem
             key={item.id}
@@ -20,6 +21,14 @@ const ExplorePage = () => {
             title={item.title}
             summary={item.content}
             author={item.date}
+            originalURL={item.originalURL}
+            isLiked={
+              item.liked_user.find((num) => {
+                store.get("user").id === num;
+              }) === -1
+                ? false
+                : true
+            }
           />
         );
       })}

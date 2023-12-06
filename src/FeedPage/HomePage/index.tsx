@@ -4,10 +4,29 @@ import NewsItem from "./NewsItem";
 import Title from "./Title";
 import SubTitle from "./SubTitle";
 import Divider from "@mui/material/Divider";
-import { usePrivateFeed } from "../../apiHook";
+import { PrivateNewsResponse, usePrivateFeed } from "../../apiHook";
+import store from "../../localStorage";
+import { useState } from "react";
 
 const HomePage = () => {
+  const [render, setRender] = useState(false);
   const news = usePrivateFeed();
+
+  const toggleLike = (item: PrivateNewsResponse) => {
+    news.find((newsItem) => newsItem.id === item.id)!.likeOrDislike =
+      item.likeOrDislike === 1 ? 0 : 1;
+    setRender(!render);
+    fetch(`http://localhost:8000/api/feed/private/${item.id}/like-or-dislike`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${store.get("access_token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        likeOrDislike: 1,
+      }),
+    });
+  };
 
   return (
     <Container>
@@ -24,6 +43,9 @@ const HomePage = () => {
               title={item.title}
               summary={item.content}
               author={item.date}
+              originalURL={item.originalURL}
+              isLiked={item.likeOrDislike === 1}
+              toggleLike={() => toggleLike(item)}
             />
           );
         })}

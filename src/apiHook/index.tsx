@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import store from "../localStorage";
 
-export interface NewsResponse {
+export interface PrivateNewsResponse {
   id: number;
   title: string;
   content: string;
@@ -10,6 +10,7 @@ export interface NewsResponse {
   date: string;
   user: number;
   imgURL: string;
+  likeOrDislike: number;
 }
 
 export interface PublicNewsResponse {
@@ -41,7 +42,7 @@ export interface UserInfoRespnose {
 const url = "https://48fb9690-7d5e-4251-81e4-5672eb698679.mock.pstmn.io";
 
 const usePrivateFeed = () => {
-  const [news, setNews] = useState<NewsResponse[]>([]);
+  const [news, setNews] = useState<PrivateNewsResponse[]>([]);
   useEffect(() => {
     fetch(url + "/api/feed/private/list", {
       headers: {
@@ -66,7 +67,6 @@ const usePublicFeed = (interests: string) => {
         setNews(data);
       });
   }, []);
-  console.log(news);
   return news;
 };
 

@@ -24,6 +24,7 @@ const CustomImage = styled("img")`
   object-cover;
   transition: transform 200ms;
   border-radius: 8px;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
@@ -67,6 +68,7 @@ interface ComponentProps {
   summary: string;
   thumbnailSrc: string;
   isLiked?: boolean;
+  originalURL: string;
   toggleLike?: () => void;
 }
 
@@ -76,6 +78,7 @@ export default function Component({
   summary,
   thumbnailSrc,
   isLiked,
+  originalURL,
   toggleLike = () => {
     console.log("test");
   },
@@ -99,6 +102,10 @@ export default function Component({
               width="135"
               style={{
                 aspectRatio: "1 / 1",
+              }}
+              onClick={() => {
+                const openNewWindow = window.open("about:blank");
+                openNewWindow.location.href = originalURL;
               }}
             />
           </div>
