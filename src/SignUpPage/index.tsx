@@ -12,6 +12,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
+import { Divider } from "@mui/material";
+import { FormHelperText } from '@mui/material';
 
 interface signUpResponse {
   access_token: string;
@@ -46,6 +48,10 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const [nameError, setNameError] = React.useState(null);
+  const [emailError, setEmailError] = React.useState(null);
+  const [passwordError, setPasswordError] = React.useState(null);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -58,17 +64,24 @@ export default function SignUp() {
         },
         body: JSON.stringify({
           username: data.get("name"),
-          password1: data.get("password"),
-          password2: data.get("password"),
+          password1: data.get("password1"),
+          password2: data.get("password2"),
         }),
       }
     );
-    const jsonData: signUpResponse = await response.json();
-    store.set("user", jsonData.user);
-    store.set("email", data.get("email"));
-    store.set("access_token", jsonData.access_token);
-    store.set("refresh_token", jsonData.refresh_token);
-    navigate("/initialsetup");
+    if (response.status == 201) {
+      const jsonData: signUpResponse = await response.json();
+      store.set("user", jsonData.user);
+      store.set("email", data.get("email"));
+      store.set("access_token", jsonData.access_token);
+      store.set("refresh_token", jsonData.refresh_token);
+      console.log(jsonData)
+      navigate("/initialsetup");
+    } else {
+      const errorData = await response.json();
+      setNameError(errorData.username);
+      setEmailError(errorData.email);
+      setPasswordError(errorData.password1);    }
   };
 
   return (
@@ -105,27 +118,40 @@ export default function SignUp() {
                   name="name"
                   autoComplete="name"
                 />
+                {nameError && <FormHelperText error>{nameError}</FormHelperText>}
+
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   autoComplete="email"
                 />
+                {emailError && <FormHelperText error>{emailError}</FormHelperText>}
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  id="password1"
                   label="Password"
+                  name="password1"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="password2"
+                  label="Password confirm"
+                  name="password2"
+                  type="password"
+                />
+                {passwordError && <FormHelperText error>{passwordError}</FormHelperText>}
+
               </Grid>
             </Grid>
             <Button
@@ -135,6 +161,25 @@ export default function SignUp() {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
+            </Button>
+            <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
+            <Button
+              startIcon={<img src="/kakao_button.png" alt="kakao" style={{ width: '1.5rem', position: 'absolute', left: '0.5rem', top: '0.5rem' }}/>}
+              style={{ 
+                backgroundColor: '#FEE500', 
+                marginBottom: '2rem', 
+                color: 'rgba(0, 0, 0, 0.85)', 
+                display: 'flex', 
+                justifyContent: 'center', 
+                position: 'relative',
+                textTransform: 'none'
+
+              }}
+              type="submit"
+              fullWidth
+              variant="contained"
+            >
+              Login with Kakao
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
