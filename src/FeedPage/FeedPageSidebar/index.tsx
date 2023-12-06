@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import AppLogo from "./AppLogo";
 import { useNavigate } from "react-router-dom";
+import store from "../../localStorage";
 
 // Icon Import
 import HomeIcon from "@mui/icons-material/Home";
@@ -54,8 +55,12 @@ const FeedPageSidebar: React.FC<FeedPageSidebarProps> = ({ setPage }) => {
   };
 
   const Logout = async () => {
-    await fetch("http://localhost:8000/api/user/logout", {
+    await fetch("http://localhost:8000/api/user/dj-rest-auth/logout/", {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${store.get("access_token")}`,
+        "Content-Type": "application/json",
+      },
     });
     navigate("/");
   };

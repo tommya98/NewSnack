@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import store from "../localStorage";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
@@ -35,30 +36,39 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-  accessExpired: number;
-  userId: number;
-  enabled: boolean;
+  access_token: string;
+  refresh_token: string;
+  user: {
+    id: number;
+    username: string;
+  };
 }
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const response = await fetch("http://localhost:8080/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({
-        email: data.get("email"),
-        password: data.get("password"),
-      }),
-    });
+    const response = await fetch(
+      "http://localhost:8000/api/user/dj-rest-auth/login/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: data.get("name"),
+          password: data.get("password"),
+        }),
+      }
+    );
     const loginResult: LoginResponse = await response.json();
-    store.set("accessToken", loginResult.accessToken);
-    store.set("refreshToken", loginResult.refreshToken);
-    store.set("accessExpired", loginResult.accessExpired);
-    store.set("userId", loginResult.userId);
-    store.set("enabled", loginResult.enabled);
+    store.set("accessToken", loginResult.access_token);
+    store.set("refreshToken", loginResult.refresh_token);
+    store.set("user", loginResult.user);
+    if (response.ok) {
+      navigate("/feed");
+    }
   };
 
   return (
@@ -89,10 +99,9 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="name"
+              label="Name"
+              name="name"
               autoFocus
             />
             <TextField
