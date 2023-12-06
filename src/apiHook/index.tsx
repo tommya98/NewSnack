@@ -38,10 +38,12 @@ export interface UserInfoRespnose {
   receptTime: string;
 }
 
+const url = "https://48fb9690-7d5e-4251-81e4-5672eb698679.mock.pstmn.io";
+
 const usePrivateFeed = () => {
   const [news, setNews] = useState<NewsResponse[]>([]);
   useEffect(() => {
-    fetch("http://localhost:8000/api/feed/private/list", {
+    fetch(url + "/api/feed/private/list", {
       headers: {
         Authorization: `Bearer ${store.get("access_token")}`,
         "Content-Type": "application/json",
@@ -58,7 +60,7 @@ const usePrivateFeed = () => {
 const usePublicFeed = (interests: string) => {
   const [news, setNews] = useState<PublicNewsResponse[]>();
   useEffect(() => {
-    fetch(`http://localhost:8000/api/feed/public/list?interest=${interests}`)
+    fetch(url + `/api/feed/public/list?interest=${interests}`)
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
@@ -71,7 +73,7 @@ const usePublicFeed = (interests: string) => {
 const useUserInfo = () => {
   const [userInfo, setUserInfo] = useState<UserInfoRespnose>();
   useEffect(() => {
-    fetch("http://localhost:8000/api/user/dj-rest-auth/user/", {
+    fetch("url" + "/api/user/dj-rest-auth/user/", {
       headers: {
         Authorization: `Bearer ${store.get("access_token")}`,
         "Content-Type": "application/json",

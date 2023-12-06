@@ -13,6 +13,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
 import Kakaologin from "./KakaoLogin";
+import { Divider } from "@mui/material";
+import { FormHelperText } from '@mui/material';
 
 interface signUpResponse {
   access_token: string;
@@ -47,6 +49,10 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const [nameError, setNameError] = React.useState(null);
+  const [emailError, setEmailError] = React.useState(null);
+  const [passwordError, setPasswordError] = React.useState(null);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -59,17 +65,24 @@ export default function SignUp() {
         },
         body: JSON.stringify({
           username: data.get("name"),
-          password1: data.get("password"),
-          password2: data.get("password"),
+          password1: data.get("password1"),
+          password2: data.get("password2"),
         }),
       }
     );
-    const jsonData: signUpResponse = await response.json();
-    store.set("user", jsonData.user);
-    store.set("email", data.get("email"));
-    store.set("access_token", jsonData.access_token);
-    store.set("refresh_token", jsonData.refresh_token);
-    navigate("/initialsetup");
+    if (response.status == 201) {
+      const jsonData: signUpResponse = await response.json();
+      store.set("user", jsonData.user);
+      store.set("email", data.get("email"));
+      store.set("access_token", jsonData.access_token);
+      store.set("refresh_token", jsonData.refresh_token);
+      console.log(jsonData)
+      navigate("/initialsetup");
+    } else {
+      const errorData = await response.json();
+      setNameError(errorData.username);
+      setEmailError(errorData.email);
+      setPasswordError(errorData.password1);    }
   };
 
   return (
@@ -106,27 +119,39 @@ export default function SignUp() {
                   name="name"
                   autoComplete="name"
                 />
+                {nameError && <FormHelperText error>{nameError}</FormHelperText>}
+
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="email"
                   label="이메일 주소"
                   name="email"
                   autoComplete="email"
                 />
+                {emailError && <FormHelperText error>{emailError}</FormHelperText>}
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  name="password1"
                   label="비밀번호"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="password2"
+                  label="비밀번호 확인"
+                  name="password2"
+                  type="password"
+                />
+                {passwordError && <FormHelperText error>{passwordError}</FormHelperText>}
+
               </Grid>
             </Grid>
             <Button
@@ -137,7 +162,9 @@ export default function SignUp() {
             >
               회원가입
             </Button>
+            <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
             <Kakaologin />
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body2">

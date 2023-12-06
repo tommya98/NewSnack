@@ -11,7 +11,7 @@ const HomePage = () => {
 
   return (
     <Container>
-      <Title date="Today" />
+      <Title text="Feed" />
       <Divider />
       <NewsItemContainer>
         <SubTitle label="News" />
@@ -29,22 +29,21 @@ const HomePage = () => {
         })}
       </NewsItemContainer>
 
-      <NewsItemContainer>
+      {/* <NewsItemContainer>
         <SubTitle label="Youtube" />
 
-        {mockData.map((news, index) => {
-          return (
-            <NewsItem
-              key={index * 11}
-              thumbnailSrc={news.imgSrc}
-              title={news.newsTitle}
-              summary={news.newsSummary}
-              author={news.author}
-              isLiked={true}
-            />
-          );
-        })}
-      </NewsItemContainer>
+      {YoutubeMockData.map((news) => {
+        return (
+          <NewsItem
+            key={news.newsTitle}
+            thumbnailSrc={news.imgSrc}
+            title={news.newsTitle}
+            summary={news.newsSummary}
+            author={news.author}
+          />
+        );
+      })}
+      </NewsItemContainer> */}
     </Container>
   );
 };
@@ -64,12 +63,3 @@ const NewsItemContainer = styled(Box)`
 `;
 
 export default HomePage;
-
-const mockData = Array.from({ length: 3 }, (_, i) => ({
-  imgSrc: `https://picsum.photos/seed/${Math.random()}/200/300`,
-  newsTitle: `NewsTitle ${i + 1}`,
-  newsSummary: `NewsSummary ${
-    i + 1
-  } Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe vero repudiandae deleniti vitae nam nihil officia omnis porro modi nulla laboriosam, dolorem, vel commodi nostrum, ea asperiores consequatur optio at.`,
-  author: `author ${i + 1}`,
-}));
