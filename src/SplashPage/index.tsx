@@ -15,9 +15,9 @@ const SplashPage = () => {
     <Container>
       <Link to={"feed"}>임시 피드 이동</Link>
       <Header />
-      <TopSection img={news.publicFeeds[0].imgURL} />
-      <MiddleSection news={news.publicFeeds} />
-      <BottomSection news={news.publicFeeds} />
+      <TopSection img={news[0].imgURL} />
+      <MiddleSection news={news} />
+      <BottomSection news={news} />
       <Footer />
     </Container>
   ) : (

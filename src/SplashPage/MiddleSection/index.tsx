@@ -3,19 +3,9 @@ import Heading from "./Heading";
 import AppDescription from "./Description";
 import NewsCard from "./NewsCard";
 import Box from "@mui/material/Box";
+import { PublicNewsResponse } from "../../apiHook";
 
-interface NewsProps {
-  id: number;
-  title: string;
-  content: string;
-  comment: string;
-  originalURL: string;
-  date: string;
-  interest: string;
-  imgURL: string;
-}
-
-const MiddleSection = ({ news }: { news: NewsProps[] }) => {
+const MiddleSection = ({ news }: { news: PublicNewsResponse[] }) => {
   return (
     <Container>
       <Heading message="Recommendations for You" />
