@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import store from "../localStorage";
 import { useNavigate } from "react-router-dom";
+import { FormHelperText } from '@mui/material';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
@@ -46,6 +47,8 @@ interface LoginResponse {
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = React.useState(null);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -62,12 +65,15 @@ export default function SignIn() {
         }),
       }
     );
-    const loginResult: LoginResponse = await response.json();
-    store.set("accessToken", loginResult.access_token);
-    store.set("refreshToken", loginResult.refresh_token);
-    store.set("user", loginResult.user);
     if (response.ok) {
+      const loginResult: LoginResponse = await response.json();
+      store.set("accessToken", loginResult.access_token);
+      store.set("refreshToken", loginResult.refresh_token);
+      store.set("user", loginResult.user);
       navigate("/feed");
+    } else {
+      const errorData = await response.json();
+      setErrorMessage(errorData.non_field_errors[0]);
     }
   };
 
@@ -114,6 +120,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
+            {errorMessage && <FormHelperText error>{errorMessage}</FormHelperText>}
             <Button
               type="submit"
               fullWidth
@@ -124,9 +131,6 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
               </Grid>
               <Grid item>
                 <Link href="/signup" variant="body2">
