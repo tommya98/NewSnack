@@ -7,6 +7,7 @@ import SignIn from "./SignInPage";
 import SignUp from "./SignUpPage";
 import InitialSetup from "./InitialSetup";
 import FeedPage from "./FeedPage";
+import Redirection from "./SignUpPage/KakaoLogin/Redirection";
 
 const theme = createTheme({
   typography: {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "feed",
     element: <FeedPage />,
+  },
+  {
+    path: "api/kuser/kakao/callback",
+    element: <Redirection />,
   },
 ]);
 

@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
+import Kakaologin from "./KakaoLogin";
 
 interface signUpResponse {
   access_token: string;
@@ -136,6 +137,7 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
+            <Kakaologin />
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body2">
