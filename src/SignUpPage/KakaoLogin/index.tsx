@@ -28,7 +28,7 @@ const Kakaologin = () => {
   fullWidth
   variant="contained"
   >
-  Login with Kakao
+  카카오 로그인으로 계속하기
   </Button>
 
   );
