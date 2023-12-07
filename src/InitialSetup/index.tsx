@@ -13,8 +13,50 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+const marks = [
+  {
+    value: 1,
+    label: '1',
+  },
+  {
+    value: 2,
+    label: '2',
+  },
+  {
+    value: 3,
+    label: '3',
+  },
+  {
+    value: 4,
+    label: '4',
+  },
+  {
+    value: 5,
+    label: '5',
+  },
+];
+
+function InputField(props: any) {
+  return (
+    <TextField
+      fullWidth
+      id={props.id}
+      label={props.label}
+      name={props.name}
+      autoComplete={props.autoComplete}
+      error={props.error ? true : false}
+      helperText={props.error ? props.error : null}
+      InputProps={{
+        style: {
+          borderRadius: "10px",
+        }
+      }}
+      type={props.type ? props.type : "text"}
+      variant="outlined"
+      margin="dense"
+    />
+  )
+}
 
 export default function InitialSetup() {
   const [freq, setFreq] = React.useState(1);
@@ -56,75 +98,80 @@ export default function InitialSetup() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Setup
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ display: 'flex-column', width: "100%", marginBottom: "1rem" }}>
+          <Typography component="h1" variant="h4" style={{ fontWeight: 'bold' }}>
+            설정
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="nickname"
-              label="닉네임"
-              id="nickname"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="birthYear"
-              label="태어난 년도"
-              id="birthYear"
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="kakaoAddress"
-              label="카카오톡 주소"
-              id="kakaoAddress"
-            />
-            <Typography variant="h5">하루 수신 횟수</Typography>
+          <Typography variant="subtitle1"
+            sx={{
+              fontSize: '0.8rem',
+              color: 'gray',
+              lineHeight: '1.5'
+            }}>
+            뉴스낵 이용을 위해 몇 가지 정보를 입력해주세요.
+          </Typography>
+        </Box>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          noValidate
+          sx={{ mt: 1 }}
+        >
+          <InputField id="nickname" label="닉네임" name="nickname" autoComplete="nickname" />
+          <InputField id="birthYear" label="태어난 년도" name="birthYear" autoComplete="birthYear" />
+          <InputField id="kakaoAddress" label="카카오톡 메일" name="kakaoAddress" autoComplete="kakaoAddress" />
+          <Box sx={{ mt: "1rem", mb: "1rem" }} >
+            <Typography gutterBottom
+              sx={{
+                fontSize: '0.8rem',
+                color: 'gray'
+              }}>
+              하루 수신 횟수
+            </Typography>
             <Slider
-              aria-label="Temperature"
+              aria-label="sendFrequency"
               defaultValue={1}
               valueLabelDisplay="auto"
               step={1}
-              marks
+              marks={marks}
               min={1}
               max={5}
               value={freq}
               onChange={(e) => {
                 if (e && e.target) {
-                  setFreq(e.target.value);
+                  const target = e.target as HTMLInputElement;
+                  setFreq(Number(target.value));
                 }
               }}
             />
-            <Typography variant="h5">관심사</Typography>
+
+          </Box>
+
+          <Box sx={{ mt: "1rem", mb: "1rem" }} >
+            <Typography gutterBottom
+              sx={{
+                fontSize: '0.8rem',
+                color: 'gray'
+              }}>
+              관심사
+            </Typography>
             <FormGroup row>
               {interestList.map((item) => {
                 return (
                   <FormControlLabel
                     key={item.ko}
                     onChange={(e) => {
-                      if (e.target.checked == true) {
+                      if ((e.target as HTMLInputElement).checked === true) {
                         setInterest([...interest, item.en]);
                       } else {
                         setInterest(
@@ -138,17 +185,17 @@ export default function InitialSetup() {
                 );
               })}
             </FormGroup>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Submit
-            </Button>
           </Box>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            제출
+          </Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }
