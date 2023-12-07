@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import store from "../localStorage";
 import { useNavigate } from "react-router-dom";
-import { Divider, FormHelperText } from '@mui/material';
+import { Divider, FormHelperText } from "@mui/material";
 import Kakaologin from "../SignUpPage/KakaoLogin";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,6 +36,7 @@ function InputField(props: any) {
     <TextField
       required
       fullWidth
+      type={props.name === "password" ? "password" : "text"}
       id={props.id}
       label={props.label}
       name={props.name}
@@ -45,15 +46,14 @@ function InputField(props: any) {
       InputProps={{
         style: {
           borderRadius: "10px",
-        }
+        },
       }}
       type={props.type ? props.type : "text"}
       variant="outlined"
       margin="dense"
     />
-  )
+  );
 }
-
 
 interface LoginResponse {
   access_token: string;
@@ -88,31 +88,36 @@ export default function SignIn() {
     );
     if (response.ok) {
       const loginResult: LoginResponse = await response.json();
-      store.set("accessToken", loginResult.access_token);
-      store.set("refreshToken", loginResult.refresh_token);
+      store.set("access_token", loginResult.access_token);
+      store.set("refresh_token", loginResult.refresh_token);
       store.set("user", loginResult.user);
       navigate("/feed");
     } else {
       const errorData = await response.json();
       setNameError(errorData.username);
-      setPasswordError(errorData.password);    
+      setPasswordError(errorData.password);
       setNonFieldError(errorData.non_field_errors);
     }
   };
 
   return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            borderRadius: 4,
-            boxShadow: 10,
-            padding: 4
-          }}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          borderRadius: 4,
+          boxShadow: 10,
+          padding: 4,
+        }}
+      >
+        <Typography
+          component="h1"
+          variant="h5"
+          style={{ fontWeight: "bold", marginBottom: "1rem" }}
         >
           <Box sx={{ display: 'flex-column', width: "100%", marginBottom:"1rem"}}>
             <Typography component="h1" variant="h4" style={{ fontWeight: 'bold' }}>
@@ -166,10 +171,36 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
-          </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
+          </Grid>
+          <FormHelperText error={nonFieldError ? true : false}>
+            {nonFieldError ? nonFieldError : null}
+          </FormHelperText>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            로그인
+          </Button>
+          <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
+          <Kakaologin type="signin" />
 
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                비밀번호를 잊으셨나요?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"회원가입"}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
-      </Container>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Box>
+    </Container>
   );
 }

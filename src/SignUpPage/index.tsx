@@ -47,6 +47,7 @@ function InputField(props: any) {
     <TextField
       required
       fullWidth
+      type={props.name === "password" ? "password" : "text"}
       id={props.id}
       label={props.label}
       name={props.name}
@@ -101,7 +102,7 @@ export default function SignUp() {
       const errorData = await response.json();
       setNameError(errorData.username);
       setEmailError(errorData.email);
-      setPasswordError(errorData.password1);
+      setPasswordError(errorData.password);
       setNonFieldError(errorData.non_field_errors);
     }
   };

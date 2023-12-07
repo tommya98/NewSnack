@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import store from "../../localStorage";
 
 type ButtonText = 'signin' | 'signup';
 
@@ -11,6 +12,7 @@ const Kakaologin: React.FC<KakaologinProps> = ({ type }) => {
   const link = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIEND_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const loginHandler = () => {
+    store.set("isSignUp", type === "signup");
     window.location.href = link;
   };
 
@@ -42,8 +44,9 @@ const Kakaologin: React.FC<KakaologinProps> = ({ type }) => {
       variant="contained"
       onClick={loginHandler}
     >
-        {type === 'signup' ? '카카오 회원가입으로 계속하기' : '카카오 로그인으로 계속하기'}
-
+      {type === "signup"
+        ? "카카오 계정으로 회원가입"
+        : "카카오 계정으로 로그인"}
     </Button>
   );
 };
