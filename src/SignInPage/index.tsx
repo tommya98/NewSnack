@@ -9,10 +9,10 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import store from "../localStorage";
 import { useNavigate } from "react-router-dom";
-import { FormHelperText } from '@mui/material';
+import { Divider, FormHelperText } from '@mui/material';
+import Kakaologin from "../SignUpPage/KakaoLogin";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Copyright(props: any) {
@@ -33,8 +33,28 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+function InputField(props: any) {
+  return (
+    <TextField
+      required
+      fullWidth
+      id={props.id}
+      label={props.label}
+      name={props.name}
+      autoComplete={props.autoComplete}
+      error={props.error ? true : false}
+      helperText={props.error ? props.error : null}
+      InputProps={{
+        style: {
+          borderRadius: "10px",
+        }
+      }}
+      variant="outlined"
+      margin="dense"
+    />
+  )
+}
+
 
 interface LoginResponse {
   access_token: string;
@@ -47,7 +67,9 @@ interface LoginResponse {
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = React.useState(null);
+  const [nameError, setNameError] = React.useState(null);
+  const [passwordError, setPasswordError] = React.useState(null);
+  const [nonFieldError, setNonFieldError] = React.useState(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,12 +95,13 @@ export default function SignIn() {
       navigate("/feed");
     } else {
       const errorData = await response.json();
-      setErrorMessage(errorData.non_field_errors[0]);
+      setNameError(errorData.username);
+      setPasswordError(errorData.password);    
+      setNonFieldError(errorData.non_field_errors);
     }
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -87,12 +110,12 @@ export default function SignIn() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            borderRadius: 4,
+            boxShadow: 10,
+            padding: 4
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" style={{ fontWeight: 'bold', marginBottom: '1rem' }}>
             로그인
           </Typography>
           <Box
@@ -101,26 +124,15 @@ export default function SignIn() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="name"
-              label="아이디"
-              name="name"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="비밀번호"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            {errorMessage && <FormHelperText error>{errorMessage}</FormHelperText>}
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <InputField id="name" label="아이디" name="name" autoComplete="name" error={nameError} />
+              </Grid>
+              <Grid item xs={12}>
+                <InputField id="password" label="비밀번호" name="password" autoComplete="password" error={passwordError} />
+              </Grid>
+            </Grid>
+            <FormHelperText error={nonFieldError ? true : false}>{nonFieldError ? nonFieldError : null}</FormHelperText>
             <Button
               type="submit"
               fullWidth
@@ -129,6 +141,9 @@ export default function SignIn() {
             >
               로그인
             </Button>
+            <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
+            <Kakaologin />
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -142,9 +157,9 @@ export default function SignIn() {
               </Grid>
             </Grid>
           </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
   );
 }
