@@ -1,7 +1,12 @@
 import Button from "@mui/material/Button";
 import store from "../../localStorage";
 
-const Kakaologin = ({ type }: { type: "signup" | "signin" }) => {
+type ButtonText = 'signin' | 'signup';
+
+interface KakaologinProps {
+  type: ButtonText;
+}
+const Kakaologin: React.FC<KakaologinProps> = ({ type }) => {
   const CLIEND_ID = import.meta.env.VITE_CLIEND_ID;
   const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
   const link = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIEND_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;

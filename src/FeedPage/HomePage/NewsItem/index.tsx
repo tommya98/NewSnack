@@ -105,7 +105,7 @@ export default function Component({
               }}
               onClick={() => {
                 const openNewWindow = window.open("about:blank");
-                openNewWindow.location.href = originalURL;
+                if (openNewWindow) openNewWindow.location.href = originalURL;
               }}
             />
           </div>
@@ -121,7 +121,6 @@ export default function Component({
             <Author>By {author}</Author>
             <Summary>{summary}</Summary>
           </div>
-          {/* if Hover on, show MoreButton */}
           {isHovered && (
             <MoreButton aria-label="more" onClick={toggleLike}>
               {isLiked && <FavoriteIcon />}
