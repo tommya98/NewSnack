@@ -12,9 +12,7 @@ import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
 import Kakaologin from "./KakaoLogin";
 import { Divider, Input } from "@mui/material";
-import { FormHelperText } from '@mui/material';
-import backgroundImage from '/background.jpg';
-import { useEffect } from "react";
+import { FormHelperText } from "@mui/material";
 
 interface signUpResponse {
   access_token: string;
@@ -58,15 +56,14 @@ function InputField(props: any) {
       InputProps={{
         style: {
           borderRadius: "10px",
-        }
+        },
       }}
       type={props.type ? props.type : "text"}
       variant="outlined"
       margin="dense"
     />
-  )
+  );
 }
-
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -98,31 +95,31 @@ export default function SignUp() {
       store.set("email", data.get("email"));
       store.set("access_token", jsonData.access_token);
       store.set("refresh_token", jsonData.refresh_token);
-      console.log(jsonData)
+      console.log(jsonData);
       navigate("/initialsetup");
     } else {
       const errorData = await response.json();
       setNameError(errorData.username);
       setEmailError(errorData.email);
-      setPasswordError(errorData.password1);    
+      setPasswordError(errorData.password1);
       setNonFieldError(errorData.non_field_errors);
     }
   };
 
   return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            borderRadius: 4,
-            boxShadow: 10,
-            padding: 4
-          }}
-        >
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          borderRadius: 4,
+          boxShadow: 10,
+          padding: 4,
+        }}
+      >
           <Box sx={{ display: 'flex-column', width: "100%", marginBottom:"1rem"}}>
             <Typography component="h1" variant="h4" style={{ fontWeight: 'bold' }}>
               회원가입
@@ -166,17 +163,16 @@ export default function SignUp() {
             <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
             <Kakaologin type="signup"/>
 
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  이미 계정이 있으신가요? 로그인
-                </Link>
-              </Grid>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link href="/signin" variant="body2">
+                이미 계정이 있으신가요? 로그인
+              </Link>
             </Grid>
-          </Box>
-          <Copyright sx={{ mt: 5 }} />
-
+          </Grid>
         </Box>
-      </Container>
+        <Copyright sx={{ mt: 5 }} />
+      </Box>
+    </Container>
   );
 }
