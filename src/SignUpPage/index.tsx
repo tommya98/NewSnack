@@ -6,10 +6,8 @@ import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
 import Kakaologin from "./KakaoLogin";
@@ -62,6 +60,7 @@ function InputField(props: any) {
           borderRadius: "10px",
         }
       }}
+      type={props.type ? props.type : "text"}
       variant="outlined"
       margin="dense"
     />
@@ -108,16 +107,6 @@ export default function SignUp() {
       setPasswordError(errorData.password1);    
       setNonFieldError(errorData.non_field_errors);
     }
-    useEffect(() => {
-      document.body.style.backgroundImage = `url(${backgroundImage})`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backgroundPosition = 'center';
-
-      return () => {
-          document.body.style.background = 'none';
-      };
-  }, []); // 빈 의존성 배열로 마운트될 때만 실행
   };
 
   return (
@@ -134,9 +123,20 @@ export default function SignUp() {
             padding: 4
           }}
         >
-          <Typography component="h1" variant="h5" style={{ fontWeight: 'bold', marginBottom: '1rem' }}>
-            회원가입
-          </Typography>
+          <Box sx={{ display: 'flex-column', width: "100%", marginBottom:"1rem"}}>
+            <Typography component="h1" variant="h4" style={{ fontWeight: 'bold' }}>
+              회원가입
+            </Typography>
+            <Typography variant="subtitle1"   
+            sx={{
+              fontSize: '0.8rem',
+              color: 'gray',
+              lineHeight: '1.5'
+            }}>
+              뉴스낵의 회원이 되시면, 더 많은 기능을 이용하실 수 있습니다.
+            </Typography>
+          </Box>
+
           <Box
             component="form"
             noValidate
@@ -148,13 +148,10 @@ export default function SignUp() {
                 <InputField id="name" label="아이디" name="name" autoComplete="name" error={nameError} />
               </Grid>
               <Grid item xs={12}>
-                <InputField id="email" label="이메일" name="email" autoComplete="email" error={emailError} />
+                <InputField id="password1" label="비밀번호" name="password1" autoComplete="password1" error={passwordError} type="password" />
               </Grid>
               <Grid item xs={12}>
-                <InputField id="password1" label="비밀번호" name="password1" autoComplete="password1" error={passwordError} />
-              </Grid>
-              <Grid item xs={12}>
-                <InputField id="nickname" label="닉네임" name="nickname" autoComplete="nickname" />
+                <InputField id="password2" label="비밀번호 확인" name="password2" autoComplete="password2" error={passwordError} type="password" />
               </Grid>
             </Grid>
             <FormHelperText error={nonFieldError ? true : false}>{nonFieldError ? nonFieldError : null}</FormHelperText>
@@ -167,7 +164,7 @@ export default function SignUp() {
               회원가입
             </Button>
             <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
-            <Kakaologin />
+            <Kakaologin type="signup"/>
 
             <Grid container justifyContent="flex-end">
               <Grid item>
