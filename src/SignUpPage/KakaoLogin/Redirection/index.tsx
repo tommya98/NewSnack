@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Redirection = () => {
-  const code = window.location.search;
+  const codeQuery = window.location.search;
+  const code = codeQuery.split("=")[1];
   const navigate = useNavigate();
+  console.log(codeQuery);
   console.log(code);
 
   useEffect(() => {
@@ -12,7 +14,7 @@ const Redirection = () => {
       .then((data) => {
         console.log(data);
       });
-    // navigate("/feed");
+    navigate("/feed");
   }, []);
 
   return <div>로그인 중입니다.</div>;

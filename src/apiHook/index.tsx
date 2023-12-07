@@ -39,7 +39,7 @@ export interface UserInfoRespnose {
   receptTime: string;
 }
 
-const url = "https://localhost:8000";
+const url = "http://localhost:8000";
 
 const usePrivateFeed = () => {
   const [news, setNews] = useState<PrivateNewsResponse[]>([]);

@@ -14,8 +14,8 @@ import { useNavigate } from "react-router-dom";
 import store from "../localStorage";
 import Kakaologin from "./KakaoLogin";
 import { Divider, Input } from "@mui/material";
-import { FormHelperText } from '@mui/material';
-import backgroundImage from '/background.jpg';
+import { FormHelperText } from "@mui/material";
+// import backgroundImage from '/background.jpg';
 import { useEffect } from "react";
 
 interface signUpResponse {
@@ -60,14 +60,13 @@ function InputField(props: any) {
       InputProps={{
         style: {
           borderRadius: "10px",
-        }
+        },
       }}
       variant="outlined"
       margin="dense"
     />
-  )
+  );
 }
-
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -99,87 +98,110 @@ export default function SignUp() {
       store.set("email", data.get("email"));
       store.set("access_token", jsonData.access_token);
       store.set("refresh_token", jsonData.refresh_token);
-      console.log(jsonData)
+      console.log(jsonData);
       navigate("/initialsetup");
     } else {
       const errorData = await response.json();
       setNameError(errorData.username);
       setEmailError(errorData.email);
-      setPasswordError(errorData.password1);    
+      setPasswordError(errorData.password1);
       setNonFieldError(errorData.non_field_errors);
     }
     useEffect(() => {
       document.body.style.backgroundImage = `url(${backgroundImage})`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backgroundPosition = 'center';
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundPosition = "center";
 
       return () => {
-          document.body.style.background = 'none';
+        document.body.style.background = "none";
       };
-  }, []); // 빈 의존성 배열로 마운트될 때만 실행
+    }, []); // 빈 의존성 배열로 마운트될 때만 실행
   };
 
   return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            borderRadius: 4,
-            boxShadow: 10,
-            padding: 4
-          }}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          borderRadius: 4,
+          boxShadow: 10,
+          padding: 4,
+        }}
+      >
+        <Typography
+          component="h1"
+          variant="h5"
+          style={{ fontWeight: "bold", marginBottom: "1rem" }}
         >
-          <Typography component="h1" variant="h5" style={{ fontWeight: 'bold', marginBottom: '1rem' }}>
-            회원가입
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
+          회원가입
+        </Typography>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <InputField
+                id="name"
+                label="아이디"
+                name="name"
+                autoComplete="name"
+                error={nameError}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <InputField
+                id="email"
+                label="이메일"
+                name="email"
+                autoComplete="email"
+                error={emailError}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <InputField
+                id="password1"
+                label="비밀번호"
+                name="password1"
+                autoComplete="password1"
+                error={passwordError}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <InputField
+                id="nickname"
+                label="닉네임"
+                name="nickname"
+                autoComplete="nickname"
+              />
+            </Grid>
+          </Grid>
+          <FormHelperText error={nonFieldError ? true : false}>
+            {nonFieldError ? nonFieldError : null}
+          </FormHelperText>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <InputField id="name" label="아이디" name="name" autoComplete="name" error={nameError} />
-              </Grid>
-              <Grid item xs={12}>
-                <InputField id="email" label="이메일" name="email" autoComplete="email" error={emailError} />
-              </Grid>
-              <Grid item xs={12}>
-                <InputField id="password1" label="비밀번호" name="password1" autoComplete="password1" error={passwordError} />
-              </Grid>
-              <Grid item xs={12}>
-                <InputField id="nickname" label="닉네임" name="nickname" autoComplete="nickname" />
-              </Grid>
-            </Grid>
-            <FormHelperText error={nonFieldError ? true : false}>{nonFieldError ? nonFieldError : null}</FormHelperText>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              회원가입
-            </Button>
-            <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
-            <Kakaologin />
+            회원가입
+          </Button>
+          <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
+          <Kakaologin />
 
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  이미 계정이 있으신가요? 로그인
-                </Link>
-              </Grid>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link href="/signin" variant="body2">
+                이미 계정이 있으신가요? 로그인
+              </Link>
             </Grid>
-          </Box>
-          <Copyright sx={{ mt: 5 }} />
-
+          </Grid>
         </Box>
-      </Container>
+        <Copyright sx={{ mt: 5 }} />
+      </Box>
+    </Container>
   );
 }
