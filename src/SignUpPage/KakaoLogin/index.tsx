@@ -1,11 +1,13 @@
 import Button from "@mui/material/Button";
+import store from "../../localStorage";
 
-const Kakaologin = () => {
+const Kakaologin = ({ type }: { type: "signup" | "signin" }) => {
   const CLIEND_ID = import.meta.env.VITE_CLIEND_ID;
   const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
   const link = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIEND_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const loginHandler = () => {
+    store.set("isSignUp", type === "signup");
     window.location.href = link;
   };
 
@@ -37,7 +39,9 @@ const Kakaologin = () => {
       variant="contained"
       onClick={loginHandler}
     >
-      카카오 로그인으로 계속하기
+      {type === "signup"
+        ? "카카오 계정으로 회원가입"
+        : "카카오 계정으로 로그인"}
     </Button>
   );
 };

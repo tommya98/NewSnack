@@ -51,6 +51,7 @@ function InputField(props: any) {
     <TextField
       required
       fullWidth
+      type={props.name === "password" ? "password" : "text"}
       id={props.id}
       label={props.label}
       name={props.name}
@@ -104,7 +105,7 @@ export default function SignUp() {
       const errorData = await response.json();
       setNameError(errorData.username);
       setEmailError(errorData.email);
-      setPasswordError(errorData.password1);
+      setPasswordError(errorData.password);
       setNonFieldError(errorData.non_field_errors);
     }
     useEffect(() => {
@@ -162,10 +163,10 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <InputField
-                id="password1"
+                id="password"
                 label="비밀번호"
-                name="password1"
-                autoComplete="password1"
+                name="password"
+                autoComplete="password"
                 error={passwordError}
               />
             </Grid>
@@ -190,7 +191,7 @@ export default function SignUp() {
             회원가입
           </Button>
           <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
-          <Kakaologin />
+          <Kakaologin type="signup" />
 
           <Grid container justifyContent="flex-end">
             <Grid item>
