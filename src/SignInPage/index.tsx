@@ -117,61 +117,80 @@ export default function SignIn() {
         <Typography
           component="h1"
           variant="h5"
-          style={{ fontWeight: "bold", marginBottom: "1rem" }}
+          style={{ fontWeight: "bold", marginBottom: "1rem", width: "100%" }}
         >
-          <Box sx={{ display: 'flex-column', width: "100%", marginBottom:"1rem"}}>
-            <Typography component="h1" variant="h4" style={{ fontWeight: 'bold' }}>
+          <Box
+            sx={{ display: "flex-column", width: "100%", marginBottom: "1rem" }}
+          >
+            <Typography
+              component="h1"
+              variant="h4"
+              style={{ fontWeight: "bold" }}
+            >
               로그인
             </Typography>
-            <Typography variant="subtitle1"   
-            sx={{
-              fontSize: '0.8rem',
-              color: 'gray',
-              lineHeight: '1.5'
-            }}>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontSize: "0.8rem",
+                color: "gray",
+                lineHeight: "1.5",
+              }}
+            >
               안녕하세요, 가벼운 한조각! 뉴스낵입니다.
             </Typography>
           </Box>
+        </Typography>
 
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <InputField id="name" label="아이디" name="name" autoComplete="name" error={nameError} />
-              </Grid>
-              <Grid item xs={12}>
-                <InputField id="password" label="비밀번호" name="password" autoComplete="password" error={passwordError} type="password"/>
-              </Grid>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <InputField
+                id="name"
+                label="아이디"
+                name="name"
+                autoComplete="name"
+                error={nameError}
+              />
             </Grid>
-            <FormHelperText error={nonFieldError ? true : false}>{nonFieldError ? nonFieldError : null}</FormHelperText>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              로그인
-            </Button>
-            <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
-            <Kakaologin type="signin"/>
-
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  비밀번호를 잊으셨나요?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"회원가입"}
-                </Link>
-              </Grid>
+            <Grid item xs={12}>
+              <InputField
+                id="password"
+                label="비밀번호"
+                name="password"
+                autoComplete="password"
+                error={passwordError}
+                type="password"
+              />
             </Grid>
           </Grid>
+          <FormHelperText error={nonFieldError ? true : false}>
+            {nonFieldError ? nonFieldError : null}
+          </FormHelperText>
+          {/* <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            로그인
+          </Button>
+          <Divider sx={{ mt: 0, mb: 2 }}> OR </Divider>
+          <Kakaologin type="signin" /> */}
+
+          {/* <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                비밀번호를 잊으셨나요?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"회원가입"}
+              </Link>
+            </Grid>
+          </Grid> */}
+
           <FormHelperText error={nonFieldError ? true : false}>
             {nonFieldError ? nonFieldError : null}
           </FormHelperText>
@@ -199,8 +218,8 @@ export default function SignIn() {
             </Grid>
           </Grid>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Box>
+      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 }
