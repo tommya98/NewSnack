@@ -73,7 +73,7 @@ const usePublicFeed = (interests: string) => {
 const useUserInfo = () => {
   const [userInfo, setUserInfo] = useState<UserInfoRespnose>();
   useEffect(() => {
-    fetch("url" + "/api/user/dj-rest-auth/user/", {
+    fetch(url + "/api/user/dj-rest-auth/user/", {
       headers: {
         Authorization: `Bearer ${store.get("access_token")}`,
         "Content-Type": "application/json",
