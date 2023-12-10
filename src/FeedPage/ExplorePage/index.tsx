@@ -25,9 +25,9 @@ const ExplorePage = () => {
             isLiked={
               item.liked_user.find((num) => {
                 store.get("user").id === num;
-              }) === -1
-                ? false
-                : true
+              })
+                ? true
+                : false
             }
           />
         );
