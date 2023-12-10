@@ -1,5 +1,4 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -120,7 +119,7 @@ export default function InitialSetup() {
           <InputField
             id="nickname"
             label="닉네임"
-            defaultValue={user.username}
+            defaultValue={user.nickname}
             name="nickname"
             autoComplete="nickname"
           />

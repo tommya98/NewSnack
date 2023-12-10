@@ -17,7 +17,7 @@ const InterestSetup = () => {
     navigate("/feed");
   };
 
-  const newsList = news?.slice(0, 8)?.map((newsItem, index) => {
+  const newsList = news?.slice(0, 20)?.map((newsItem, index) => {
     return (
       <NewsCard
         imgSrc={newsItem.imgURL}
