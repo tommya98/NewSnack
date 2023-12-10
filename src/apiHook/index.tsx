@@ -81,22 +81,31 @@ const usePublicFeed = (interests: string) => {
 };
 
 const useLikedFeed = () => {
-  const [news, setNews] = useState<LikedNewsResponse[]>();
+  const [publicNews, setPublicNews] = useState<LikedNewsResponse[]>();
+  const [privateNews, setPrivateNews] = useState<LikedNewsResponse[]>();
   useEffect(() => {
-    fetch(url + `/api/user/liked-feeds/private`)
+    fetch(url + `/api/user/liked-feeds/private`, {
+      headers: {
+        Authorization: `Bearer ${store.get("access_token")}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        if (news) setNews([...news, ...data]);
-        else setNews(data);
+        setPrivateNews(data);
       });
-    fetch(url + `/api/user/liked-feeds/public`)
+    fetch(url + `/api/user/liked-feeds/public`, {
+      headers: {
+        Authorization: `Bearer ${store.get("access_token")}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        if (news) setNews([...news, ...data]);
-        else setNews(data);
+        setPublicNews(data);
       });
   }, []);
-  return news;
+  return { publicNews, privateNews };
 };
 
 const useUserInfo = () => {

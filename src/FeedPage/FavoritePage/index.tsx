@@ -6,14 +6,27 @@ import Divider from "@mui/material/Divider";
 import { useLikedFeed } from "../../apiHook";
 
 const FavoritePage = () => {
-  const news = useLikedFeed();
+  const { publicNews, privateNews } = useLikedFeed();
 
   return (
     <>
       <Container>
         <Title text="Favorite" />
         <Divider />
-        {news?.map((item, index) => {
+        {publicNews?.map((item, index) => {
+          return (
+            <NewsItem
+              key={index}
+              thumbnailSrc={item.imgURL}
+              originalURL={item.originalURL}
+              title={item.title}
+              summary={item.content}
+              author={item.date}
+              isLiked={true}
+            />
+          );
+        })}
+        {privateNews?.map((item, index) => {
           return (
             <NewsItem
               key={index}
