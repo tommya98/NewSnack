@@ -8,10 +8,8 @@ import store from "../../localStorage";
 
 const FavoritePage = () => {
   const news = usePublicFeed("sports");
-  const likedNews = news?.filter((item) => {
-    item.liked_user.find((num) => {
-      store.get("user").id === num;
-    });
+  const likedUser = news?.filter((item) => {
+    return item.liked_user.includes(store.get("user").id);
   });
 
   return (
@@ -19,15 +17,15 @@ const FavoritePage = () => {
       <Container>
         <Title text="Favorite" />
         <Divider />
-        {mockData.map((news, index) => {
+        {likedUser?.map((news, index) => {
           return (
             <NewsItem
               key={index}
-              thumbnailSrc={news.imgSrc}
+              thumbnailSrc={news.imgURL}
               originalURL={news.originalURL}
-              title={news.newsTitle}
-              summary={news.newsSummary}
-              author={news.author}
+              title={news.title}
+              summary={news.content}
+              author={news.date}
               isLiked={true}
             />
           );

@@ -26,6 +26,16 @@ export interface PublicNewsResponse {
   disliked_user: number[];
 }
 
+export interface LikedNewsResponse {
+  id: number;
+  title: string;
+  content: string;
+  comment: string;
+  originalURL: string;
+  imgURL: string;
+  date: string;
+}
+
 export interface UserInfoRespnose {
   id: number;
   username: string;
@@ -70,6 +80,25 @@ const usePublicFeed = (interests: string) => {
   return news;
 };
 
+const useLikedFeed = () => {
+  const [news, setNews] = useState<LikedNewsResponse[]>();
+  useEffect(() => {
+    fetch(url + `/api/user/liked-feeds/private`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (news) setNews([...news, ...data]);
+        else setNews(data);
+      });
+    fetch(url + `/api/user/liked-feeds/public`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (news) setNews([...news, ...data]);
+        else setNews(data);
+      });
+  }, []);
+  return news;
+};
+
 const useUserInfo = () => {
   const [userInfo, setUserInfo] = useState<UserInfoRespnose>();
   useEffect(() => {
@@ -87,4 +116,4 @@ const useUserInfo = () => {
   return userInfo;
 };
 
-export { usePrivateFeed, useUserInfo, usePublicFeed };
+export { usePrivateFeed, useUserInfo, usePublicFeed, useLikedFeed };

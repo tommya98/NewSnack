@@ -3,11 +3,10 @@ import Box from "@mui/material/Box";
 import NewsItem from "../HomePage/NewsItem";
 import Title from "../HomePage/Title";
 import Divider from "@mui/material/Divider";
-import { usePublicFeed } from "../../apiHook";
-import store from "../../localStorage";
+import { useLikedFeed } from "../../apiHook";
 
 const ExplorePage = () => {
-  const news = usePublicFeed("sports");
+  const news = useLikedFeed();
 
   return news ? (
     <Container>
@@ -22,13 +21,7 @@ const ExplorePage = () => {
             summary={item.content}
             author={item.date}
             originalURL={item.originalURL}
-            isLiked={
-              item.liked_user.find((num) => {
-                store.get("user").id === num;
-              })
-                ? true
-                : false
-            }
+            isLiked={true}
           />
         );
       })}
