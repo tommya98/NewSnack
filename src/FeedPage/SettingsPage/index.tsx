@@ -58,7 +58,6 @@ function InputField(props: any) {
 
 export default function InitialSetup() {
   const [freq, setFreq] = React.useState(1);
-  const [interest, setInterest] = React.useState<string[]>([]);
   const user = store.get("user");
   const [open, setOpen] = React.useState(false);
 

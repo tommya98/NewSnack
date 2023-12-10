@@ -3,8 +3,17 @@ import Box from "@mui/material/Box";
 import NewsItem from "../HomePage/NewsItem";
 import Title from "../HomePage/Title";
 import Divider from "@mui/material/Divider";
+import { usePublicFeed } from "../../apiHook";
+import store from "../../localStorage";
 
 const FavoritePage = () => {
+  const news = usePublicFeed("sports");
+  const likedNews = news?.filter((item) => {
+    item.liked_user.find((num) => {
+      store.get("user").id === num;
+    });
+  });
+
   return (
     <>
       <Container>
@@ -15,6 +24,7 @@ const FavoritePage = () => {
             <NewsItem
               key={index}
               thumbnailSrc={news.imgSrc}
+              originalURL={news.originalURL}
               title={news.newsTitle}
               summary={news.newsSummary}
               author={news.author}
