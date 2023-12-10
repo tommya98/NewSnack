@@ -18,8 +18,9 @@ const Redirection = () => {
       .then((res) => res.json())
       .then((data) => {
         store.set("access_token", data.access_token);
+        store.set("refresh_token", data.refresh_token);
+        navigate(isSigneUp ? "/initialsetup" : "/feed");
       });
-    navigate(isSigneUp ? "/initialsetup" : "/feed");
   }, []);
 
   return <div>로그인 중입니다.</div>;
