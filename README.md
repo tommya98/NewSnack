@@ -1,30 +1,51 @@
-# React + TypeScript + Vite
+# 뉴스낵(Newsnack)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 매일 한 조각, 세상을 만나다!
+> 
+> 서강대학교 캡스톤 디자인2
+> 
+> 엉성김 프론트엔드 레포지토리
 
-Currently, two official plugins are available:
+## 🧑 팀원 소개
+> [BE] 성현동
+> 
+> [FE] 김영진
+> 
+> [FE] 엄석훈
+> 
+> [BE] 김재연
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📁 프로젝트 소개
+> 다양한 소스에서 사용자의 관심사에 맞는 정보를 필터링/분류하고 간결하게 요약해서 카톡/메일로 직접 제공하는 서비스
 
-## Expanding the ESLint configuration
+## 📅 프로젝트 기간
+> 2023.09.30 ~ 2023.12.10
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🛠️ 기술 스택
+> React
+>
+> TypeScript
+> 
+> Material-UI
 
-- Configure the top-level `parserOptions` property like this:
+> BE: Django
+> 
+> AI: Python + GPT
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## 🌐 링크
+> [팀 위키](http://cscp2.sogang.ac.kr/CSE4187/index.php/%EC%97%89%EC%84%B1%EA%B9%80)<br/>
+> 
+> [백엔드 레포지토리](https://github.com/newSnack/backend_django)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## 📷 결과물
+![NewSnack](https://github.com/tommya98/NewSnack/assets/63833290/b2cd4f1f-5850-4735-8c83-f1e731f77948)
+
+![NewSnack2](https://github.com/tommya98/NewSnack/assets/63833290/38e81c0a-19a2-4870-9e3a-6973e918d078)
+
+
+## 🎥 시연 영상
+https://github.com/tommya98/NewSnack/assets/63833290/d8895a7d-b2a1-44a4-af1a-63acadfd0920
+
+
+
